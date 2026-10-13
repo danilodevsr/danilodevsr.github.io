@@ -15,8 +15,10 @@ const statExperimental = document.getElementById("stat-experimental");
 const statGames = document.getElementById("stat-games");
 const catalogCountSpan = document.getElementById("catalog-count");
 
-// Estado reactivo
-let currentCategory = "all";
+// Estado reactivo & soporte para deep-linking (?cat=tools, ?cat=games)
+const urlParams = new URLSearchParams(window.location.search);
+const initialCat = urlParams.get("cat") || urlParams.get("filter");
+let currentCategory = (initialCat && ["all", "tools", "atlas", "experimental", "games"].includes(initialCat)) ? initialCat : "all";
 let searchQuery = "";
 
 // 1. Configurar año dinámico

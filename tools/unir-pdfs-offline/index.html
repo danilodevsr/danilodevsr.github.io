@@ -3,42 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unificador de PDFs (Offline)</title>
+  <title>PDFunify — Unificador de PDFs (Offline)</title>
+  <link rel="stylesheet" href="../../styles.css" />
   <style>
-    body { font-family: system-ui, Arial; max-width: 900px; margin: 24px auto; padding: 0 16px; }
-    h1 { margin-bottom: 4px; }
-    .small { color: #666; font-size: 13px; }
-    .card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 14px 0; }
-    .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #bbb; background: #fff; cursor: pointer; }
-    button.primary { background: #111; color: #fff; border-color: #111; }
-    button:disabled { opacity: .5; cursor: not-allowed; }
-    ul { list-style: none; padding: 0; margin-top: 12px; }
-    li { display: flex; justify-content: space-between; gap: 10px; padding: 10px; border: 1px solid #eee; border-radius: 10px; margin-bottom: 8px; }
-    .name { max-width: 520px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    ul#list { list-style: none; padding: 0; margin-top: 14px; }
+    ul#list li { display: flex; justify-content: space-between; gap: 10px; padding: 12px; border: 2px solid var(--border-color); margin-bottom: 8px; background: var(--bg-primary); }
+    .name { max-width: 520px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--font-mono); font-size: 13px; }
     .actions { display: flex; gap: 6px; }
-    input[type="text"] { padding: 10px; border-radius: 10px; border: 1px solid #bbb; }
+    button:disabled { opacity: .4; cursor: not-allowed; }
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="tool-header-bar">
+      <div>
+        <a class="tool-back-link" href="/?cat=tools#proyectos">← Volver al Catálogo</a>
+      </div>
+      <div>
+        <span class="badge">DSR99 // TOOL-03</span>
+      </div>
+    </div>
 
-<h1>Unificador de PDFs</h1>
-<div class="small">Funciona 100% offline · Todo se procesa en tu PC</div>
+    <div class="card">
+      <h1 style="margin-top:0;">📄 PDFunify — Unificador de PDFs</h1>
+      <p class="muted" style="margin-top:-6px; font-family: var(--font-mono); font-size: 13px;">
+        100% Client-Side & Offline · Los documentos se procesan únicamente en la memoria de tu navegador.
+      </p>
 
-<div class="card">
-  <div class="row">
-    <input id="files" type="file" accept="application/pdf" multiple />
-    <input id="outName" type="text" value="pdf_unido.pdf" />
-    <button id="mergeBtn" class="primary" disabled>Unir y descargar</button>
-    <button id="clearBtn" disabled>Limpiar</button>
+      <div class="row">
+        <input id="files" type="file" accept="application/pdf" multiple class="btn" style="padding: 8px;" />
+        <input id="outName" type="text" value="pdf_unido.pdf" style="max-width: 200px;" />
+        <button id="mergeBtn" class="btn primary" disabled>Unir y descargar</button>
+        <button id="clearBtn" class="btn" disabled>Limpiar</button>
+      </div>
+      <div id="status" class="muted" style="margin-top: 10px; font-family: var(--font-mono); font-size: 12px;"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0; font-family:var(--font-mono); text-transform:uppercase;">Orden de los PDFs</h3>
+      <ul id="list"></ul>
+    </div>
   </div>
-  <div id="status" class="small"></div>
-</div>
-
-<div class="card">
-  <strong>Orden de los PDFs</strong>
-  <ul id="list"></ul>
-</div>
 
 <!-- LIBRERÍA OFFLINE -->
 <script src="pdf-lib.min.js"></script>
