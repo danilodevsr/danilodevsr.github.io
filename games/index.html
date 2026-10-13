@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Juegos — danilodevsr</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Juegos</h1>
+        <p class="sub">Pequeños juegos web para pasar el rato.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="/">← Volver</a>
+        <a class="btn btn-outline" href="/tools/">Herramientas</a>
+      </nav>
+    </header>
+
+    <section class="hero card">
+      <div class="hero-content">
+        <h2 class="hero-title">Juegos en el navegador</h2>
+        <p class="hero-text">Experimentos ligeros con JS, Canvas y animaciones.</p>
+        <div class="hero-cta">
+          <input class="search" id="search" placeholder="Buscar juegos…" />
+        </div>
+      </div>
+      <div class="hero-aside"><div class="note">Tip: comparte y juega</div></div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head"><h2>Todos</h2></div>
+      <div class="grid auto" id="games-grid"></div>
+    </section>
+
+    <footer class="footer">© <span id="year"></span> danilodevsr</footer>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script type="module" src="../scripts.js"></script>
+</body>
+</html>

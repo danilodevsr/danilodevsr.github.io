@@ -1,0 +1,135 @@
+import { addActivity, removeActivity, updateActivity, sortActivities, ensureMinimumActivities, getState } from './state.js';
+import { validateAgenda } from './validation.js';
+
+export const createActivityRow = (activity, { onChange, onDelete }) => {
+  const row = document.createElement('div');
+  row.className = 'activity-row';
+  row.dataset.id = activity.id;
+
+  const dayWrapper = document.createElement('div');
+  dayWrapper.className = 'day';
+  const dayLabel = document.createElement('label');
+  dayLabel.textContent = 'Día';
+  dayLabel.className = 'sr-only';
+  const dayInput = document.createElement('input');
+  dayInput.type = 'date';
+  dayInput.value = activity.activityDate;
+  dayInput.className = 'day-input';
+
+  const startWrapper = document.createElement('div');
+  startWrapper.className = 'time';
+  const startLabel = document.createElement('label');
+  startLabel.textContent = 'Inicio';
+  startLabel.className = 'sr-only';
+  const startInput = document.createElement('input');
+  startInput.type = 'time';
+  startInput.value = activity.start;
+  startInput.className = 'time-start';
+
+  const endWrapper = document.createElement('div');
+  endWrapper.className = 'time';
+  const endLabel = document.createElement('label');
+  endLabel.textContent = 'Fin';
+  endLabel.className = 'sr-only';
+  const endInput = document.createElement('input');
+  endInput.type = 'time';
+  endInput.value = activity.end;
+  endInput.className = 'time-end';
+
+  const descWrapper = document.createElement('div');
+  descWrapper.className = 'description';
+  const descLabel = document.createElement('label');
+  descLabel.textContent = 'Descripción';
+  descLabel.className = 'sr-only';
+  const descInput = document.createElement('textarea');
+  descInput.value = activity.description;
+  descInput.placeholder = 'Describe la actividad';
+  descInput.rows = 1;
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.type = 'button';
+  deleteBtn.className = 'delete';
+  deleteBtn.textContent = 'Eliminar';
+
+  const error = document.createElement('div');
+  error.className = 'error';
+
+  dayWrapper.append(dayLabel, dayInput);
+  startWrapper.append(startLabel, startInput);
+  endWrapper.append(endLabel, endInput);
+  descWrapper.append(descLabel, descInput);
+  row.append(dayWrapper, startWrapper, endWrapper, descWrapper, deleteBtn, error);
+
+  const emitChange = (payload = {}) => {
+    onChange({
+      id: activity.id,
+      ...payload
+    });
+  };
+
+  const emitTimeChange = () => {
+    emitChange({
+      start: startInput.value,
+      end: endInput.value,
+      activityDate: dayInput.value
+    });
+  };
+
+  const emitDayChange = () => {
+    emitChange({ activityDate: dayInput.value, isDateManual: true });
+  };
+
+  const resizeDescription = () => {
+    descInput.style.height = 'auto';
+    descInput.style.height = `${descInput.scrollHeight}px`;
+  };
+  resizeDescription();
+
+  let descTimeout;
+  const scheduleDescriptionSave = () => {
+    clearTimeout(descTimeout);
+    descTimeout = setTimeout(() => {
+      emitChange({ description: descInput.value });
+    }, 400);
+  };
+
+  const flushDescription = () => {
+    clearTimeout(descTimeout);
+    emitChange({ description: descInput.value });
+  };
+
+  startInput.addEventListener('input', emitTimeChange);
+  endInput.addEventListener('input', emitTimeChange);
+  dayInput.addEventListener('change', emitDayChange);
+  descInput.addEventListener('input', () => {
+    scheduleDescriptionSave();
+    resizeDescription();
+  });
+  descInput.addEventListener('blur', flushDescription);
+
+  deleteBtn.addEventListener('click', () => onDelete(activity.id));
+
+  return { row, inputs: { startInput, endInput, descInput, dayInput }, errorEl: error, deleteBtn };
+};
+
+export const addNewActivity = () => {
+  const activity = addActivity();
+  sortActivities();
+  return activity;
+};
+
+export const deleteActivity = (id) => {
+  removeActivity(id);
+  ensureMinimumActivities();
+  sortActivities();
+};
+
+export const changeActivity = (payload) => {
+  updateActivity(payload.id, payload);
+  sortActivities();
+};
+
+export const getValidatedState = () => {
+  const current = getState();
+  return { ...current, validation: validateAgenda(current.activities, current.eventDate) };
+};

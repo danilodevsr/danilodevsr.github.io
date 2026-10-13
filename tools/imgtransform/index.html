@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Convertir / Redimensionar Imagen</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>🖼️ ImgTransform</h1>
+      <p class="sub">Carga una imagen, elige un preset y descárgala optimizada.</p>
+
+      <!-- Controles -->
+      <div class="row" style="margin-bottom:10px;">
+        <input type="file" id="fileInput" accept="image/*" class="btn" />
+        <span class="muted" id="fileMeta">Sin archivo</span>
+      </div>
+
+      <div class="grid">
+        <div class="col-6">
+          <label for="preset">Preset de tamaño</label>
+          <select id="preset" class="btn" style="width:100%;">
+            <option value="">— Selecciona un preset —</option>
+            <option value="1080x1920">Reel / Story (1080×1920)</option>
+            <option value="1080x1080">Post cuadrado IG (1080×1080)</option>
+            <option value="1200x1600">Portrait web (1200×1600)</option>
+            <option value="1920x1080">Hero 16:9 (1920×1080)</option>
+            <option value="1920x800">Hero ancho (1920×800)</option>
+            <option value="1600x1600">Producto e-commerce (1600×1600)</option>
+            <option value="1280x720">Thumbnail 16:9 (1280×720)</option>
+            <option value="original">Mantener tamaño original</option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="format">Formato de salida</label>
+          <div class="row">
+            <select id="format" class="btn">
+              <option value="image/jpeg">JPG</option>
+              <option value="image/png">PNG</option>
+              <option value="image/webp">WEBP</option>
+            </select>
+
+            <label class="muted" for="quality" style="margin-left:6px;">Calidad</label>
+            <input id="quality" type="range" min="0.5" max="1" step="0.05" value="0.9" />
+            <span class="muted" id="qualityVal">0.90</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <button id="generateBtn" class="btn primary" disabled>Generar</button>
+        <button id="downloadBtn" class="btn" disabled>Descargar</button>
+      </div>
+
+      <div id="preview" style="margin-top:16px"></div>
+      <canvas id="canvas" style="display:none;"></canvas>
+
+      <div class="footer">
+        El proceso es 100% local — tu imagen no se sube a ningún servidor.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const input   = document.getElementById('fileInput');
+    const preset  = document.getElementById('preset');
+    const format  = document.getElementById('format');
+    const quality = document.getElementById('quality');
+    const qVal    = document.getElementById('qualityVal');
+    const genBtn  = document.getElementById('generateBtn');
+    const dlBtn   = document.getElementById('downloadBtn');
+    const meta    = document.getElementById('fileMeta');
+    const preview = document.getElementById('preview');
+    const canvas  = document.getElementById('canvas');
+    const ctx     = canvas.getContext('2d');
+
+    let img = new Image();
+    let fileName = '';
+    let fileType = '';
+
+    // Mostrar calidad numérica
+    quality.addEventListener('input', () => qVal.textContent = Number(quality.value).toFixed(2));
+
+    // Habilitar Generar solo si hay archivo + preset
+    function toggleGenerate() {
+      genBtn.disabled = !(input.files?.length && preset.value);
+      dlBtn.disabled  = true;
+    }
+
+    input.addEventListener('change', () => {
+      const f = input.files?.[0];
+      if (!f) { meta.textContent = 'Sin archivo'; toggleGenerate(); return; }
+
+      fileName = f.name;
+      fileType = f.type || 'image/*';
+
+      // Mostrar metadata
+      const ext = (fileName.split('.').pop() || '').toLowerCase();
+      meta.textContent = `Archivo: ${fileName} • tipo: ${fileType || ext}`;
+
+      // Cargar imagen
+      const reader = new FileReader();
+      reader.onload = e => { img.src = e.target.result; };
+      reader.readAsDataURL(f);
+
+      img.onload = () => {
+        preview.innerHTML = `
+          <p class="muted">Vista previa (original: ${img.width}×${img.height})</p>
+          <img src="${img.src}" style="max-width:260px;border-radius:8px;border:1px solid #1f2937" />
+        `;
+      };
+
+      // Sugerir formato por defecto
+      if (ext === 'png') format.value = 'image/png';
+      else if (ext === 'webp') format.value = 'image/webp';
+      else format.value = 'image/jpeg';
+
+      toggleGenerate();
+    });
+
+    preset.addEventListener('change', toggleGenerate);
+
+    // Utilidad: draw cover centrado (recorta para llenar el lienzo)
+    function drawCover(image, targetW, targetH) {
+      const iw = image.width, ih = image.height;
+      const scale = Math.max(targetW / iw, targetH / ih);
+      const dw = iw * scale, dh = ih * scale;
+      const dx = (targetW - dw) / 2;
+      const dy = (targetH - dh) / 2;
+      ctx.clearRect(0, 0, targetW, targetH);
+      ctx.drawImage(image, dx, dy, dw, dh);
+    }
+
+    // Generar
+    genBtn.addEventListener('click', () => {
+      if (!input.files?.length || !preset.value) return;
+
+      let outW, outH;
+
+      if (preset.value === 'original') {
+        outW = img.width;
+        outH = img.height;
+        canvas.width = outW;
+        canvas.height = outH;
+        ctx.clearRect(0, 0, outW, outH);
+        ctx.drawImage(img, 0, 0, outW, outH);
+      } else {
+        const [w, h] = preset.value.split('x').map(Number);
+        outW = w; outH = h;
+        canvas.width = outW;
+        canvas.height = outH;
+        drawCover(img, outW, outH);
+      }
+
+      // Previsualizar resultado
+      const dataURL = canvas.toDataURL(format.value, Number(quality.value));
+      preview.innerHTML = `
+        <p class="muted">Resultado: ${outW}×${outH} (${format.value.replace('image/','').toUpperCase()})</p>
+        <img src="${dataURL}" style="max-width:320px;border-radius:8px;border:1px solid #1f2937" />
+      `;
+
+      dlBtn.disabled = false;
+      dlBtn.onclick = () => {
+        canvas.toBlob((blob) => {
+          const ext = format.value.split('/')[1] || 'jpg';
+          const nameBase = fileName.replace(/\\.[^.]+$/, '');
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = `${nameBase}_${outW}x${outH}.${ext}`;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        }, format.value, Number(quality.value));
+      };
+    });
+  </script>
+</body>
+</html>

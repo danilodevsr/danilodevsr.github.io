@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DANILODEVSR // LABS — Open-Source Personal Suite</title>
+  <meta name="description" content="Laboratorio de ingeniería web, herramientas prácticas, simuladores y visualizadores client-side de danilodevsr." />
+
+  <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body class="landing-page">
+
+  <!-- 1. HEADER EDITORIAL -->
+  <header>
+    <div class="container nav-wrapper">
+      <div class="brand-wrap">
+        <a href="#" class="brand">
+          <span class="brand-dot"></span>
+          <span>DANILODEVSR // LABS</span>
+        </a>
+        <div class="status-badge mono uppercase">
+          <span class="status-dot"></span>
+          <span>STATUS: OPERATIONAL</span>
+        </div>
+      </div>
+      <nav class="nav-links mono uppercase">
+        <a href="#destacados" class="nav-link">DESTACADOS</a>
+        <a href="#proyectos" class="nav-link">CATÁLOGO</a>
+        <a href="https://github.com/danilodevsr" target="_blank" rel="noopener" class="nav-btn">
+          <span>GITHUB</span>
+          <span>↗</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 2. BITSTREAM AUDIO VISUALIZER (GENERATIVE BITS WAVEFORM) -->
+  <div class="bitstream-bar" aria-label="Audio Bits Visualizer">
+    <canvas id="bitstream-canvas" class="bitstream-canvas"></canvas>
+  </div>
+
+  <!-- 3. HERO MONUMENTAL -->
+  <section class="hero-section">
+    <div class="container">
+      <span class="hero-tag mono uppercase">[ OPEN-SOURCE PERSONAL SUITE // V2.0 ]</span>
+      <h1 class="hero-title">EXPERIMENTOS, HERRAMIENTAS & CÓDIGO.</h1>
+      <p class="hero-subtitle">
+        Colección viva de utilidades de ingeniería, visualizadores interactivos y herramientas de software.
+        Construidas con JavaScript puro, sin dependencias pesadas y listas para usar directamente en el navegador.
+      </p>
+      <div class="hero-actions mono uppercase">
+        <a href="#proyectos" class="btn-brutal">
+          <span>EXPLORAR TODOS LOS PROYECTOS</span>
+          <span>↓</span>
+        </a>
+        <a href="#destacados" class="btn-brutal btn-ghost">
+          <span>CASOS DESTACADOS</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SPECS BAR (TABLA HORIZONTAL DE MÉTRICAS) -->
+  <section class="specs-bar-section mono uppercase">
+    <div class="container specs-grid">
+      <div class="spec-item">
+        <div class="spec-label">TOTAL ASSETS</div>
+        <div class="spec-value" id="stat-total">14</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">HERRAMIENTAS</div>
+        <div class="spec-value" id="stat-tools">06</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">ATLAS VIRTUALES</div>
+        <div class="spec-value" id="stat-atlas">03</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">LAB EXPERIMENTAL</div>
+        <div class="spec-value" id="stat-experimental">03</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">JUEGOS CANVAS</div>
+        <div class="spec-value" id="stat-games">02</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">RUNTIME</div>
+        <div class="spec-value">CLIENT-SIDE</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SECCIÓN 01: DESTACADOS -->
+  <section class="featured-section" id="destacados">
+    <div class="container">
+      <div class="section-head-wrap">
+        <div>
+          <span class="section-tag mono uppercase">SELECCIÓN // CURADURÍA</span>
+          <h2 class="section-title">PROYECTOS DESTACADOS</h2>
+        </div>
+        <div class="section-count mono uppercase">
+          <span>#03 SELECCIONADOS</span>
+        </div>
+      </div>
+
+      <div class="featured-grid" id="featured-grid">
+        <!-- Renderizado dinámico en scripts.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. SECCIÓN 02: CATÁLOGO COMPLETO & BUSCADOR -->
+  <section class="catalog-section" id="proyectos">
+    <div class="container">
+      <div class="section-head-wrap">
+        <div>
+          <span class="section-tag mono uppercase">DIRECTORIO // COMPENDIO</span>
+          <h2 class="section-title">CATÁLOGO COMPLETO</h2>
+        </div>
+        <div class="section-count mono uppercase" id="catalog-count">
+          <span>#17 PROYECTOS</span>
+        </div>
+      </div>
+
+      <!-- Barra de herramientas: Búsqueda y Filtros -->
+      <div class="catalog-toolbar">
+        <div class="search-box-wrap">
+          <div class="search-label mono uppercase">BUSCADOR //</div>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="search-input" 
+            placeholder="Escribe para buscar (ej: calculadora, bingo, d3, diesel, pdf)..." 
+            autocomplete="off"
+          />
+        </div>
+        <div class="filter-pills" id="filter-pills">
+          <!-- Renderizado dinámico de pills -->
+        </div>
+      </div>
+
+      <!-- Grilla de Tarjetas -->
+      <div class="projects-grid" id="projects-grid">
+        <!-- Renderizado dinámico en scripts.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FOOTER EDITORIAL -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand mono">DANILODEVSR // LABS</div>
+          <p class="footer-desc">
+            Espacio de exploración de software, visualizaciones de datos y experimentación frontend sin ataduras de frameworks.
+          </p>
+        </div>
+        <div class="footer-specs-list mono uppercase">
+          <div>GITHUB: <a href="https://github.com/danilodevsr" target="_blank" rel="noopener">HTTPS://GITHUB.COM/DANILODEVSR ↗</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom mono uppercase">
+        <div>© <span id="current-year">2026</span> DANILODEVSR. TODOS LOS DERECHOS RESERVADOS.</div>
+        <div>LOCAL-FIRST & ANTI-SAAS</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="./scripts.js"></script>
+</body>
+</html>

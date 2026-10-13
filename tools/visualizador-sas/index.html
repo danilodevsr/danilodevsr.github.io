@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visualizador SAS Pipeline</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Creado por dsr-solutions, contacte via mail por contact@dsr99.com</p>
+        <h1>Visualizador de Scripts SAS</h1>
+        <p class="sub">
+          Convierte scripts `.sas` en un flujo visual de transformación de datos sin ejecutar SAS.
+        </p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="../index.html">← Volver</a>
+        <a class="btn" href="../../index.html">Inicio</a>
+      </nav>
+    </header>
+
+    <section class="card tool-shell">
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <button class="btn" id="analyzeBtn" type="button">Analizar script</button>
+          <button class="btn btn-outline" id="loadExampleBtn" type="button">Cargar ejemplo</button>
+          <button class="btn btn-outline" id="clearBtn" type="button">Limpiar</button>
+        </div>
+        <div class="toolbar-group">
+          <label class="file-button btn btn-outline" for="fileInput">Abrir `.sas`</label>
+          <input id="fileInput" type="file" accept=".sas,.txt" hidden />
+        </div>
+      </div>
+
+      <div class="workspace">
+        <section class="panel panel-editor">
+          <div class="panel-head">
+            <h2>Editor SAS</h2>
+            <p>Pega o edita tu script y sincronízalo con el grafo.</p>
+          </div>
+          <textarea id="sasEditor" aria-label="Editor SAS"></textarea>
+        </section>
+
+        <section class="panel panel-graph">
+          <div class="panel-head">
+            <h2>Flujo de datos</h2>
+            <p>Nodos para tablas, resultados finales y destinos externos.</p>
+          </div>
+          <div class="graph-toolbar" aria-label="Controles del grafo">
+            <button class="graph-control" id="panUpBtn" type="button" aria-label="Mover arriba">↑</button>
+            <button class="graph-control" id="panDownBtn" type="button" aria-label="Mover abajo">↓</button>
+            <button class="graph-control" id="panLeftBtn" type="button" aria-label="Mover izquierda">←</button>
+            <button class="graph-control" id="panRightBtn" type="button" aria-label="Mover derecha">→</button>
+            <button class="graph-control graph-control-strong" id="zoomInBtn" type="button" aria-label="Acercar">+</button>
+            <button class="graph-control graph-control-strong" id="zoomOutBtn" type="button" aria-label="Alejar">−</button>
+            <button class="graph-control graph-control-home" id="resetViewBtn" type="button" aria-label="Restablecer vista">Home</button>
+            <button class="graph-control graph-control-export" id="downloadImageBtn" type="button" aria-label="Descargar imagen del grafo">Descargar imagen</button>
+          </div>
+          <div id="graph" aria-label="Diagrama del flujo de datos"></div>
+        </section>
+        
+        <section class="panel panel-details is-collapsed">
+          <div class="panel-head">
+            <div>
+              <h2>Detalle del paso</h2>
+              <p>Selecciona un nodo o mueve el cursor en el editor.</p>
+            </div>
+            <button class="panel-toggle" id="toggleDetailsBtn" type="button" aria-expanded="false" aria-label="Expandir detalle del paso">+</button>
+          </div>
+          <div class="panel-collapsible-content">
+            <div class="details-status" id="detailsStatus">
+              Todavía no hay un paso seleccionado.
+            </div>
+            <div class="details-grid" id="detailsGrid"></div>
+            <div class="code-preview">
+              <div class="code-preview-head">
+                <span>Código SAS del bloque</span>
+                <span id="stepMeta">Sin bloque activo</span>
+              </div>
+              <pre id="rawCode">Analiza un script para ver aquí el bloque correspondiente.</pre>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel panel-json is-collapsed">
+        <div class="panel-head">
+          <div>
+            <h2>Modelo JSON intermedio</h2>
+            <p>Representación base para extender el parser del MVP.</p>
+          </div>
+          <button class="panel-toggle" id="toggleJsonBtn" type="button" aria-expanded="false" aria-label="Expandir modelo JSON intermedio">+</button>
+        </div>
+        <div class="panel-collapsible-content">
+          <pre id="jsonPreview">{ "nodes": [], "edges": [], "steps": [] }</pre>
+        </div>
+      </section>
+      
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+  <script src="https://unpkg.com/cytoscape@3.29.2/dist/cytoscape.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
