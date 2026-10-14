@@ -445,6 +445,34 @@ body.landing-page header {
 .f-card-link { font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; }
 .f-card-link:hover { text-decoration: underline; }
 
+/* Showroom Section */
+.showroom-section { padding: 4.5rem 0; border-bottom: 2px solid var(--border-color); background: var(--bg-primary); }
+.showroom-banner {
+  border: 2px solid var(--border-color); padding: 2.25rem; background: var(--bg-secondary);
+  margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;
+  gap: 2rem; flex-wrap: wrap; box-shadow: var(--shadow-brutal);
+}
+.showroom-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.03em; margin: 0.4rem 0 0.6rem; color: #000000; }
+.showroom-desc { font-size: 0.95rem; color: var(--text-secondary); max-width: 680px; margin: 0; line-height: 1.5; }
+.showroom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; }
+.showroom-card {
+  background: var(--bg-card); border: 2px solid var(--border-color);
+  padding: 2rem; box-shadow: var(--shadow-brutal); display: flex;
+  flex-direction: column; justify-content: space-between; transition: all 0.15s ease;
+}
+.showroom-card:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-brutal-hover); }
+.showroom-card.card-ifraldas { border-left: 6px solid #01b6bc; }
+.showroom-card.card-voicebox { border-left: 6px solid #EF4444; }
+.showroom-card-badge { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.72rem; font-weight: 700; }
+.skin-tag { border: 1px solid var(--border-color); padding: 0.2rem 0.5rem; background: var(--bg-secondary); font-size: 0.7rem; }
+.showroom-card-title { font-size: 1.35rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem; letter-spacing: -0.02em; color: #000000; }
+.showroom-card-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem; }
+.showroom-card-specs {
+  font-size: 0.72rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.25rem;
+  margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--border-light);
+}
+.showroom-card-footer { display: flex; justify-content: flex-start; }
+
 /* Catalog Section */
 .catalog-section { padding: 5rem 0; background: var(--bg-secondary); border-bottom: 2px solid var(--border-color); }
 .catalog-toolbar {
@@ -544,6 +572,7 @@ body.landing-page footer {
       </div>
       <nav class="nav-links mono uppercase">
         <a href="#destacados" class="nav-link">DESTACADOS</a>
+        <a href="#showroom" class="nav-link">SHOWROOM</a>
         <a href="#proyectos" class="nav-link">CATÁLOGO</a>
         <a href="https://github.com/danilodevsr" target="_blank" rel="noopener" class="nav-btn">
           <span>GITHUB</span>
@@ -569,11 +598,11 @@ body.landing-page footer {
       </p>
       <div class="hero-actions mono uppercase">
         <a href="#proyectos" class="btn-brutal">
-          <span>EXPLORAR TODOS LOS PROYECTOS</span>
+          <span>EXPLORAR CATÁLOGO</span>
           <span>↓</span>
         </a>
-        <a href="#destacados" class="btn-brutal btn-ghost">
-          <span>CASOS DESTACADOS</span>
+        <a href="#showroom" class="btn-brutal btn-ghost">
+          <span>SHOWROOM DEMOS</span>
           <span>→</span>
         </a>
       </div>
@@ -585,7 +614,11 @@ body.landing-page footer {
     <div class="container specs-grid">
       <div class="spec-item">
         <div class="spec-label">TOTAL ASSETS</div>
-        <div class="spec-value" id="stat-total">14</div>
+        <div class="spec-value" id="stat-total">16</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">SHOWROOM DEMOS</div>
+        <div class="spec-value" id="stat-demos">02</div>
       </div>
       <div class="spec-item">
         <div class="spec-label">HERRAMIENTAS</div>
@@ -625,6 +658,76 @@ body.landing-page footer {
 
       <div class="featured-grid" id="featured-grid">
         <!-- Renderizado dinámico en scripts.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 5.5. SECCIÓN SHOWROOM: MAQUETAS & DEMOS A MEDIDA -->
+  <section class="showroom-section" id="showroom">
+    <div class="container">
+      <div class="showroom-banner">
+        <div class="showroom-content">
+          <span class="section-tag mono uppercase">SHOWROOM // EXPERIENCIAS DIGITALES</span>
+          <h2 class="showroom-title">¿DESEAS TU PROPIA WEB O MAQUETA A MEDIDA?</h2>
+          <p class="showroom-desc">
+            Desarrollo de experiencias frontend inmersivas: scrollytelling fluido, visualización interactiva,
+            animaciones 60fps con Lenis & GSAP, y diseño editorial de alto contraste sin plantillas genéricas.
+          </p>
+        </div>
+        <div class="showroom-actions mono uppercase">
+          <a href="#proyectos" class="btn-brutal" onclick="document.querySelector('[data-cat=demos]')?.click()">
+            <span>FILTRAR EN CATÁLOGO</span>
+            <span>↓</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="showroom-grid">
+        <article class="showroom-card card-ifraldas">
+          <div>
+            <div class="showroom-card-badge mono uppercase">
+              <span>DEMO 01 // SISTEMA IFRALDAS</span>
+              <span class="skin-tag">IRIS & SLATE</span>
+            </div>
+            <h3 class="showroom-card-title">Montessori Home · Pizarras Kids</h3>
+            <p class="showroom-card-desc">
+              Scrollytelling pedagógico interactivo de pizarras acrílicas transparentes con borrado dinámico en Canvas 2D, selector de packs y cálculo pedagógico para familias.
+            </p>
+            <div class="showroom-card-specs mono">
+              <span>PIEL VISUAL: ifraldas-design-system</span>
+              <span>STACK: Canvas 2D · GSAP · CSS Tokens</span>
+            </div>
+          </div>
+          <div class="showroom-card-footer">
+            <a href="/demos/01-pizarras-kids-learning/" class="btn-brutal" target="_blank" rel="noopener">
+              <span>ABRIR SHOWROOM</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="showroom-card card-voicebox">
+          <div>
+            <div class="showroom-card-badge mono uppercase">
+              <span>DEMO 02 // SISTEMA VOICEBOX</span>
+              <span class="skin-tag">EDITORIAL CONTRAST</span>
+            </div>
+            <h3 class="showroom-card-title">Thalassa Pacific · Custodia Ecuatorial</h3>
+            <p class="showroom-card-desc">
+              Expedición oceanográfica con diseño editorial de alto contraste (#0A0A0A / #EF4444), bioacústica de cetáceos, monitoreo satelital e interacciones a 60fps.
+            </p>
+            <div class="showroom-card-specs mono">
+              <span>PIEL VISUAL: voicebox-editorial</span>
+              <span>STACK: Lenis · Archivo Black · Audio Reactive</span>
+            </div>
+          </div>
+          <div class="showroom-card-footer">
+            <a href="/demos/thalassa-ocean-guardians/" class="btn-brutal" target="_blank" rel="noopener">
+              <span>ABRIR SHOWROOM</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -824,6 +927,26 @@ const PROJECTS = [
     emoji: '⏳',
     tags: ['Historia', 'Trivia', 'Cronología'],
     category: 'games'
+  },
+
+  // --- SHOWROOM // DEMOS DE ALTO IMPACTO (/demos/) ---
+  {
+    id: 'D01',
+    title: 'Montessori Home // Pizarras Kids',
+    desc: 'Scrollytelling pedagógico interactivo de pizarras acrílicas. Piel visual iFraldas Design System.',
+    path: '/demos/01-pizarras-kids-learning/',
+    emoji: '🖍️',
+    tags: ['Scrollytelling', 'Montessori', 'iFraldas Skin', 'Canvas 2D'],
+    category: 'demos'
+  },
+  {
+    id: 'D02',
+    title: 'Thalassa // Custodia Ecuatorial',
+    desc: 'Expedición oceanográfica y bioacústica marina en el Pacífico. Piel visual editorial VoiceBox.',
+    path: '/demos/thalassa-ocean-guardians/',
+    emoji: '🐋',
+    tags: ['Editorial', 'VoiceBox Skin', 'Lenis', 'Conservación'],
+    category: 'demos'
   }
 ];
 
@@ -837,6 +960,7 @@ const currentYearSpan = document.getElementById("current-year");
 
 // Estadísticas en Specs Bar
 const statTotal = document.getElementById("stat-total");
+const statDemos = document.getElementById("stat-demos");
 const statTools = document.getElementById("stat-tools");
 const statAtlas = document.getElementById("stat-atlas");
 const statExperimental = document.getElementById("stat-experimental");
@@ -854,12 +978,14 @@ if (currentYearSpan) {
 
 // 2. Calcular y pintar métricas
 const totalCount = PROJECTS.length;
+const demosCount = PROJECTS.filter(p => p.category === "demos").length;
 const toolsCount = PROJECTS.filter(p => p.category === "tools").length;
 const atlasCount = PROJECTS.filter(p => p.category === "atlas").length;
 const expCount = PROJECTS.filter(p => p.category === "experimental").length;
 const gamesCount = PROJECTS.filter(p => p.category === "games").length;
 
 if (statTotal) statTotal.textContent = String(totalCount).padStart(2, "0");
+if (statDemos) statDemos.textContent = String(demosCount).padStart(2, "0");
 if (statTools) statTools.textContent = String(toolsCount).padStart(2, "0");
 if (statAtlas) statAtlas.textContent = String(atlasCount).padStart(2, "0");
 if (statExperimental) statExperimental.textContent = String(expCount).padStart(2, "0");
@@ -873,7 +999,11 @@ if (featuredGrid) {
   featuredGrid.innerHTML = featuredList.map(p => {
     const categoryName = p.category === "atlas" 
       ? "ATLAS // EXPLORADOR VISUAL" 
-      : (p.category === "tools" ? "HERRAMIENTA // UTILIDAD" : (p.category === "experimental" ? "LAB // EXPERIMENTAL" : "JUEGO // CANVAS"));
+      : (p.category === "demos" 
+          ? "DEMO // SCROLLYTELLING" 
+          : (p.category === "tools" 
+              ? "HERRAMIENTA // UTILIDAD" 
+              : (p.category === "experimental" ? "LAB // EXPERIMENTAL" : "JUEGO // CANVAS")));
     return `
       <article class="featured-card">
         <div>
@@ -901,6 +1031,7 @@ if (featuredGrid) {
 // 4. Renderizar Filtros Rápidos (Pills)
 const categories = [
   { id: "all", label: "TODOS", count: totalCount },
+  { id: "demos", label: "DEMOS & SHOWROOM", count: demosCount },
   { id: "tools", label: "HERRAMIENTAS", count: toolsCount },
   { id: "atlas", label: "ATLAS", count: atlasCount },
   { id: "experimental", label: "EXPERIMENTAL", count: expCount },

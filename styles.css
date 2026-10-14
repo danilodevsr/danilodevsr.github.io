@@ -430,6 +430,34 @@ body.landing-page header {
 .f-card-link { font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; }
 .f-card-link:hover { text-decoration: underline; }
 
+/* Showroom Section */
+.showroom-section { padding: 4.5rem 0; border-bottom: 2px solid var(--border-color); background: var(--bg-primary); }
+.showroom-banner {
+  border: 2px solid var(--border-color); padding: 2.25rem; background: var(--bg-secondary);
+  margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;
+  gap: 2rem; flex-wrap: wrap; box-shadow: var(--shadow-brutal);
+}
+.showroom-title { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.03em; margin: 0.4rem 0 0.6rem; color: #000000; }
+.showroom-desc { font-size: 0.95rem; color: var(--text-secondary); max-width: 680px; margin: 0; line-height: 1.5; }
+.showroom-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; }
+.showroom-card {
+  background: var(--bg-card); border: 2px solid var(--border-color);
+  padding: 2rem; box-shadow: var(--shadow-brutal); display: flex;
+  flex-direction: column; justify-content: space-between; transition: all 0.15s ease;
+}
+.showroom-card:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-brutal-hover); }
+.showroom-card.card-ifraldas { border-left: 6px solid #01b6bc; }
+.showroom-card.card-voicebox { border-left: 6px solid #EF4444; }
+.showroom-card-badge { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.72rem; font-weight: 700; }
+.skin-tag { border: 1px solid var(--border-color); padding: 0.2rem 0.5rem; background: var(--bg-secondary); font-size: 0.7rem; }
+.showroom-card-title { font-size: 1.35rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem; letter-spacing: -0.02em; color: #000000; }
+.showroom-card-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem; }
+.showroom-card-specs {
+  font-size: 0.72rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.25rem;
+  margin-bottom: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--border-light);
+}
+.showroom-card-footer { display: flex; justify-content: flex-start; }
+
 /* Catalog Section */
 .catalog-section { padding: 5rem 0; background: var(--bg-secondary); border-bottom: 2px solid var(--border-color); }
 .catalog-toolbar {

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es" class="lenis lenis-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THALASSA PACIFIC EXPEDITION // Custodia en la Línea Ecuatorial</title>
+  <meta name="description" content="Expedición oceanográfica comunitaria en aguas abiertas del Pacífico ecuatorial. Custodia biológica, bioacústica y vida a bordo." />
+  <!-- Prevención crítica de FOUC para modales flotantes -->
+  <style>
+    .config-modal:not(.is-active) {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-B59v074L.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BUuGIEta.css">
+</head>
+<body>
+  <!-- Micro Progress Bar -->
+  <div class="header-progress-container" aria-hidden="true">
+    <div id="header-progress-bar" class="header-progress-bar"></div>
+  </div>
+
+  <!-- Header Flotante con Glassmorphism -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand-logo">
+        <span class="brand-logo-badge">⚓</span>
+        <span>THALASSA PACIFIC</span>
+      </a>
+      <nav class="nav-links" id="site-nav">
+        <span class="nav-indicator" id="nav-indicator" aria-hidden="true"></span>
+        <a href="#hero-section" class="nav-link is-active">Inicio</a>
+        <a href="#manifesto-section" class="nav-link">Manifiesto</a>
+        <a href="#proof-section" class="nav-link">Validación</a>
+        <a href="#showcase-section" class="nav-link">Santuarios</a>
+        <a href="#stacking-section" class="nav-link">Tripulación</a>
+      </nav>
+      <div class="header-actions">
+        <button class="cta-button open-config-btn">
+          <span class="btn-text-desktop">Unirse a la Tripulación</span>
+          <span class="btn-text-mobile">Zarpar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- BLOQUE 1: Hero Full-Bleed Cinematic (Sin métricas, 100% editorial) -->
+    <section id="hero-section" class="hero-section">
+      <div class="hero-backdrop">
+        <img
+          id="hero-bg-img"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Megaptera_novaeangliae_underwater_NOAA.jpg?width=1600"
+          data-wiki-query="Megaptera novaeangliae underwater humpback whale ocean"
+          alt="Ballena Jorobada en el Pacífico Ecuatorial"
+          class="hero-bg-img"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="hero-gradient-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge-wrap">
+          <span class="hero-badge">0°00'00" LATITUD // EXPEDICIÓN 2026 // TRIPULACIÓN ABIERTA</span>
+        </div>
+        <h1 class="hero-title">THALASSA PACIFIC EXPEDITION</h1>
+        <p class="hero-subtitle">
+          Navegamos la línea zero para salvaguardar el último gran corredor de migración pelágica del planeta. Ciencia comunitaria, patrullaje ecológico y vida a bordo.
+        </p>
+        <div class="hero-actions">
+          <a href="#showcase-section" class="btn-primary">Ver Santuarios Pelágicos &rarr;</a>
+          <button class="btn-secondary open-config-btn">Postular a Bordo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 2: Sticky Split Manifesto -->
+    <section id="manifesto-section" class="manifesto-section">
+      <div class="manifesto-sticky-col">
+        <span class="section-tag">01 // PILARES DE CUSTODIA</span>
+        <h2 class="section-title">CUSTODIA EN LA LÍNEA ZERO</h2>
+        <p class="section-desc">
+          No somos turistas del océano. Tripulamos un velero de investigación oceanográfica independiente que defiende la megafauna en la frontera marítima más diversa de la Tierra.
+        </p>
+        <div class="indicator-bar" aria-hidden="true"><div class="indicator-fill"></div></div>
+      </div>
+      <div class="manifesto-scroll-col" id="manifesto-cards-container">
+        <!-- Inyectado dinámicamente desde showcase-data.ts por main.ts -->
+      </div>
+    </section>
+
+    <!-- BLOQUE 3: Demostración Empírica / Prueba de Verdad -->
+    <section id="proof-section" class="proof-section">
+      <div class="proof-container">
+        <div class="proof-header">
+          <span class="section-tag">02 // PRUEBA DE VERDAD</span>
+          <h2 class="section-title">VALIDACIÓN EN TERRENO Y REGISTRO NÁUTICO</h2>
+          <p class="section-desc">
+            Cada cifra responde a millas navegadas, mediciones oceanográficas estandarizadas y protocolos de conservación en aguas abiertas del Pacífico.
+          </p>
+        </div>
+        <div class="proof-grid" id="proof-cards-container">
+          <!-- Inyectado dinámicamente desde showcase-data.ts por main.ts -->
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 4: Virtual Horizontal Showcase -->
+    <section id="showcase-section" class="showcase-section">
+      <div class="showcase-header">
+        <div class="showcase-header-top">
+          <span class="section-tag">03 // SANTUARIOS DEL PACÍFICO</span>
+          <div class="showcase-counter">
+            <span id="showcase-counter-current">01</span>
+            <span class="showcase-counter-divider">/</span>
+            <span id="showcase-counter-total" class="showcase-counter-total">04</span>
+          </div>
+        </div>
+        <h2 class="section-title">BIODIVERSIDAD PELÁGICA PROTEGIDA</h2>
+        <div class="showcase-instruction">
+          <p class="section-desc">Desplaza horizontalmente para explorar las especies protegidas y plataformas de investigación.</p>
+          <div class="showcase-drag-hint">
+            <span class="hint-arrow">&larr;</span>
+            <span class="hint-track"><span id="showcase-progress-pill"></span></span>
+            <span class="hint-arrow">&rarr;</span>
+          </div>
+        </div>
+      </div>
+      <div id="showcase-wrapper" class="showcase-wrapper">
+        <div id="showcase-track" class="showcase-track">
+          <!-- Inyectado dinámicamente desde showcase-data.ts por main.ts -->
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 5: Kinetic Zoom Interlude -->
+    <section id="zoom-section" class="zoom-section">
+      <div class="zoom-container">
+        <p class="zoom-tagline">EL OCÉANO NO NECESITA ESPECTADORES</p>
+        <h2 id="zoom-title" class="zoom-title">ZARPA CON THALASSA &middot; PACÍFICO 2026</h2>
+      </div>
+    </section>
+
+    <!-- BLOQUE 6: Cascading Stacking Cards -->
+    <section id="stacking-section" class="stacking-cards-section">
+      <div class="stacking-header">
+        <span class="section-tag">04 // PERFILES DE TRIPULACIÓN</span>
+        <h2 class="section-title">ROLES DISPONIBLES EN CUBIERTA</h2>
+      </div>
+      <div class="stacking-container" id="stacking-container">
+        <!-- Inyectado dinámicamente desde showcase-data.ts por main.ts -->
+      </div>
+    </section>
+  </main>
+
+  <!-- BLOQUE 7: Footer Cinético -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <span class="footer-logo">⚓ THALASSA PACIFIC</span>
+        <p class="footer-motto">Custodia científica y patrullaje en la línea zero del océano.</p>
+      </div>
+      <div class="footer-action-col">
+        <h3 class="footer-action-title">¿Listo para tomar guardia en el Pacífico?</h3>
+        <p class="footer-action-desc">Postula hoy para ser parte de la próxima rotación a bordo entre Galápagos y la costa de Manabí.</p>
+        <button class="btn-primary open-config-btn">Postular a la Tripulación &rarr;</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 THALASSA PACIFIC EXPEDITION. Organización de conservación sin fines de lucro.</p>
+      <div class="footer-links">
+        <a href="#hero-section">Volver al inicio &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Interactivo Accesible con Anti-Scroll Bleed -->
+  <div id="config-modal" class="config-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-lenis-prevent>
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel">
+      <button id="modal-close-btn" class="modal-close" aria-label="Cerrar ventana">&times;</button>
+      <div class="modal-header">
+        <span class="modal-tag">CONVOCATORIA DE ZARPE // PACÍFICO 2026</span>
+        <h2 id="modal-title" class="modal-title">Ficha de Postulación a la Tripulación</h2>
+        <p class="modal-desc">Completa tus datos náuticos o científicos para ser evaluado por el comité de guardia antes del próximo zarpe desde Manta / Galápagos.</p>
+      </div>
+      
+      <form id="crew-application-form">
+        <div class="form-group">
+          <label for="crew-name" class="form-label">Nombre Completo</label>
+          <input type="text" id="crew-name" class="form-input" placeholder="ej. Sofía Andrade" required />
+        </div>
+        <div class="form-group">
+          <label for="crew-email" class="form-label">Correo Electrónico de Contacto</label>
+          <input type="email" id="crew-email" class="form-input" placeholder="tu-email@dominio.com" required />
+        </div>
+        <div class="form-group">
+          <label for="crew-role" class="form-label">Rol Deseado a Bordo</label>
+          <select id="crew-role" class="form-select" required>
+            <option value="oficial-navegacion">Oficial de Navegación & Timonel</option>
+            <option value="biologo-marino" selected>Biólogo Marino & Especialista Bioacústico</option>
+            <option value="sensores-oceano">Ingeniero de Sensores & Boyas Oceanográficas</option>
+            <option value="maniobra-cubierta">Tripulante de Maniobra & Rescate en Semirrígida</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="crew-experience" class="form-label">Experiencia en Mar / Navegación (Días o millas)</label>
+          <input type="text" id="crew-experience" class="form-input" placeholder="ej. 30 días en navegación costera, STCW básico" required />
+        </div>
+        <div class="form-group">
+          <label for="crew-motivation" class="form-label">Motivación de Conservación en el Ecuador Marino</label>
+          <textarea id="crew-motivation" class="form-textarea" rows="3" placeholder="¿Por qué deseas unirte a la patrulla en la latitud 0°?" required></textarea>
+        </div>
+        <button type="submit" class="form-submit-btn">Enviar Solicitud de Embarque &rarr;</button>
+      </form>
+
+      <div id="modal-success-state" class="modal-success-state">
+        <div class="success-icon">✓</div>
+        <h3 class="modal-title">¡Solicitud Registrada en Bitácora!</h3>
+        <p class="modal-desc" style="margin-top: 0.5rem;">
+          Tu perfil ha sido enviado a la comandancia de expedición de Thalassa Pacific. Recibirás las coordenadas de entrevista técnica en tu correo en menos de 48 horas náuticas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
