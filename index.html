@@ -463,6 +463,7 @@ body.landing-page header {
 .showroom-card:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-brutal-hover); }
 .showroom-card.card-ifraldas { border-left: 6px solid #01b6bc; }
 .showroom-card.card-voicebox { border-left: 6px solid #EF4444; }
+.showroom-card.card-craft { border-left: 6px solid #0F172A; }
 .showroom-card-badge { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.72rem; font-weight: 700; }
 .skin-tag { border: 1px solid var(--border-color); padding: 0.2rem 0.5rem; background: var(--bg-secondary); font-size: 0.7rem; }
 .showroom-card-title { font-size: 1.35rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem; letter-spacing: -0.02em; color: #000000; }
@@ -699,7 +700,7 @@ body.landing-page footer {
             </div>
           </div>
           <div class="showroom-card-footer">
-            <a href="/demos/01-pizarras-kids-learning/" class="btn-brutal" target="_blank" rel="noopener">
+            <a href="/demos/pizarras-kids-learning/" class="btn-brutal" target="_blank" rel="noopener">
               <span>ABRIR SHOWROOM</span>
               <span>↗</span>
             </a>
@@ -723,6 +724,29 @@ body.landing-page footer {
           </div>
           <div class="showroom-card-footer">
             <a href="/demos/thalassa-ocean-guardians/" class="btn-brutal" target="_blank" rel="noopener">
+              <span>ABRIR SHOWROOM</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="showroom-card card-craft">
+          <div>
+            <div class="showroom-card-badge mono uppercase">
+              <span>DEMO 03 // SISTEMA CRAFT STUDIO</span>
+              <span class="skin-tag">PVD TITANIO & CNC</span>
+            </div>
+            <h3 class="showroom-card-title">EXUS Customs · Series S Bespoke</h3>
+            <p class="showroom-card-desc">
+              Scrollytelling bespoke de consola con chasis mecanizado en titanio PVD, rejilla micro-fresada, selector de aleaciones y audio posicional interactivo.
+            </p>
+            <div class="showroom-card-specs mono">
+              <span>PIEL VISUAL: stealth-monolith</span>
+              <span>STACK: GSAP Pin · Web Audio · Canvas 2D</span>
+            </div>
+          </div>
+          <div class="showroom-card-footer">
+            <a href="/demos/series-s-craft-studio/" class="btn-brutal" target="_blank" rel="noopener">
               <span>ABRIR SHOWROOM</span>
               <span>↗</span>
             </a>
@@ -934,7 +958,7 @@ const PROJECTS = [
     id: 'D01',
     title: 'Montessori Home // Pizarras Kids',
     desc: 'Scrollytelling pedagógico interactivo de pizarras acrílicas. Piel visual iFraldas Design System.',
-    path: '/demos/01-pizarras-kids-learning/',
+    path: '/demos/pizarras-kids-learning/',
     emoji: '🖍️',
     tags: ['Scrollytelling', 'Montessori', 'iFraldas Skin', 'Canvas 2D'],
     category: 'demos'
@@ -946,6 +970,15 @@ const PROJECTS = [
     path: '/demos/thalassa-ocean-guardians/',
     emoji: '🐋',
     tags: ['Editorial', 'VoiceBox Skin', 'Lenis', 'Conservación'],
+    category: 'demos'
+  },
+  {
+    id: 'D03',
+    title: 'EXUS Customs // Series S Titanio CNC',
+    desc: 'Scrollytelling bespoke de Xbox Series S con chasis en titanio y refrigeración axial.',
+    path: '/demos/series-s-craft-studio/',
+    emoji: '🎮',
+    tags: ['Bespoke', 'Titanio CNC', 'Hardware', 'GSAP'],
     category: 'demos'
   }
 ];

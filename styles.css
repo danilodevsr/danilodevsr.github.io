@@ -448,6 +448,7 @@ body.landing-page header {
 .showroom-card:hover { transform: translate(-3px, -3px); box-shadow: var(--shadow-brutal-hover); }
 .showroom-card.card-ifraldas { border-left: 6px solid #01b6bc; }
 .showroom-card.card-voicebox { border-left: 6px solid #EF4444; }
+.showroom-card.card-craft { border-left: 6px solid #0F172A; }
 .showroom-card-badge { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.72rem; font-weight: 700; }
 .skin-tag { border: 1px solid var(--border-color); padding: 0.2rem 0.5rem; background: var(--bg-secondary); font-size: 0.7rem; }
 .showroom-card-title { font-size: 1.35rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem; letter-spacing: -0.02em; color: #000000; }
