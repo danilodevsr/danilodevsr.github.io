@@ -13,6 +13,260 @@
       opacity: 0 !important;
       pointer-events: none !important;
     }
+    /* Estilos del Caminito de Telemetría SVG Scroll-Driven */
+    /* --- CAMINITO // MAGALI CERIOTTI ARCHITECTURE --- */
+    .proof-section {
+      position: relative !important;
+      background: var(--bg-primary);
+      padding: clamp(4rem, 10vh, 7rem) clamp(1rem, 3.5vw, 2.5rem);
+      border-top: 1px solid var(--border-color);
+      overflow: visible !important;
+    }
+    .proof-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .proof-header {
+      max-width: 760px;
+      margin-bottom: 2.5rem;
+    }
+    .proof-header-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .telemetry-live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .telemetry-live-pill .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseTelemetryBeacon 2s infinite ease-in-out;
+    }
+    @keyframes pulseTelemetryBeacon {
+      0%, 100% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.25); }
+    }
+    .caminito-wrapper {
+      position: relative;
+      width: 100%;
+      margin-top: clamp(2.5rem, 5vw, 4.5rem);
+    }
+    .caminito-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .caminito-track-base {
+      stroke: rgba(255, 255, 255, 0.15) !important;
+      stroke-width: 2px !important;
+      fill: none !important;
+    }
+    .caminito-track-active {
+      stroke: #ffffff !important;
+      stroke-width: 3px !important;
+      fill: none !important;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.5)) !important;
+      will-change: stroke-dashoffset;
+    }
+    .caminito-list {
+      position: relative;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      z-index: 6;
+    }
+    .caminito-step {
+      position: relative;
+    }
+    @media (min-width: 1024px) {
+      .caminito-step {
+        display: grid;
+        grid-template-columns: 36% 28% 36%;
+        padding-left: 0;
+        padding-bottom: 0;
+        min-height: 270px;
+      }
+      .caminito-step.step-odd .caminito-col-wrap {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        padding-right: 3.5rem;
+      }
+      .caminito-step.step-even .caminito-col-wrap {
+        grid-column-start: 3;
+        grid-row-start: 1;
+        padding-left: 3.5rem;
+      }
+    }
+    @media (max-width: 1023px) {
+      .caminito-step {
+        display: block;
+        padding-left: 54px;
+        padding-bottom: 3rem;
+        min-height: auto;
+      }
+    }
+
+    /* Paradas numeradas (01, 02, 03, 04) */
+    .caminito-parada {
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      font-family: var(--font-display, sans-serif);
+      font-weight: 800;
+      z-index: 10;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 34px;
+      height: 34px;
+      font-size: 12px;
+      border: 2px solid #27272a;
+      background: #09090b;
+      color: #71717a;
+    }
+    @media (min-width: 1024px) {
+      .caminito-parada {
+        width: 44px;
+        height: 44px;
+        font-size: 13px;
+        transform: translateX(-50%);
+      }
+      .caminito-parada.parada-left {
+        left: 36%;
+      }
+      .caminito-parada.parada-right {
+        left: 64%;
+      }
+    }
+    @media (max-width: 1023px) {
+      .caminito-parada.parada-left,
+      .caminito-parada.parada-right {
+        left: 6px;
+      }
+    }
+    .caminito-parada.is-active {
+      background: #ffffff !important;
+      border-color: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.95) !important;
+    }
+    @media (min-width: 1024px) {
+      .caminito-parada.is-active {
+        transform: translateX(-50%) scale(1.08) !important;
+      }
+    }
+
+    /* Cajas sobrias de contenido */
+    .caminito-box {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #0b0f19;
+      padding: 1.25rem 1.5rem;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.35;
+      transform: translateY(12px);
+    }
+    @media (min-width: 1024px) {
+      .caminito-box {
+        padding: 1.5rem 1.75rem;
+      }
+    }
+    .caminito-box:hover,
+    .caminito-box.is-active {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      border-color: rgba(255, 255, 255, 0.45) !important;
+      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+    .caminito-badge {
+      display: inline-flex;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #a1a1aa;
+      margin-bottom: 0.65rem;
+    }
+    .caminito-badge.badge-accent {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+    }
+    .caminito-title {
+      font-family: var(--font-display);
+      font-size: clamp(19px, 2.2vw, 25px);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: #eef2f9;
+      margin-bottom: 0.55rem;
+    }
+    .caminito-highlight {
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+    .caminito-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #a1a1aa;
+    }
+
+    /* Cabezal viajero en tiempo real */
+    .caminito-tracer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      z-index: 12;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .caminito-tracer .tracer-glow {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      filter: blur(6px);
+    }
+    .caminito-tracer .tracer-core {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 10px #ffffff;
+    }
   </style>
   <script type="module" crossorigin src="./assets/index-HcswIQ-b.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-D_eXQCpM.css">
@@ -98,17 +352,86 @@
     </section>
 
     <!-- BLOQUE 3: Demostración Empírica / Prueba de Verdad -->
+    <!-- BLOQUE 3: Demostración Empírica / Prueba de Verdad (Arquitectura Magali Ceriotti) -->
     <section id="proof-section" class="proof-section">
       <div class="proof-container">
         <div class="proof-header">
-          <span class="section-tag">02 // PRUEBA DE VERDAD</span>
-          <h2 class="section-title">VALIDACIÓN TÉCNICA Y DATOS DE IMPACTO</h2>
+          <div class="proof-header-badge-row">
+            <span class="section-tag">02 // PROCESO Y CALIBRACIÓN</span>
+            <span class="telemetry-live-pill" id="telemetry-live-pill">
+              <span class="live-dot"></span>
+              <span class="live-text">TELEMETRÍA // PIPELINE DE CALIBRACIÓN</span>
+            </span>
+          </div>
+          <h2 class="section-title">DE LA MATERIA PRIMA A LA MÁQUINA DE PRECISIÓN</h2>
           <p class="section-desc">
-            En lugar de especulaciones, cada parámetro responde a tolerancias micrométricas, escaneos termográficos y certificaciones de laboratorio.
+            Cuatro fases deterministas donde cada milímetro y cada grado centígrado son auditados antes del ensamblaje final.
           </p>
         </div>
-        <div class="proof-grid" id="proof-cards-container">
-          <!-- Inyectado dinámicamente desde showcase-data.ts por main.ts -->
+
+        <div class="caminito-wrapper" id="caminito-wrapper">
+          <!-- SVG interactivo del caminito idéntico al de Magali Ceriotti -->
+          <svg id="telemetry-caminito-svg" aria-hidden="true" fill="none" stroke-linecap="round" class="caminito-svg">
+            <path id="caminito-track-base" class="caminito-track-base"></path>
+            <path id="caminito-track-active" class="caminito-track-active"></path>
+          </svg>
+
+          <!-- Lista ordenada con los 4 hitos / estaciones -->
+          <ol class="caminito-list">
+            <!-- Paso 01 (Izquierda) -->
+            <li class="caminito-step step-odd">
+              <span data-parada="true" class="caminito-parada parada-left">01</span>
+              <div class="caminito-col-wrap">
+                <div data-texto="true" class="caminito-box">
+                  <span class="caminito-badge">FASE 01 // METROLOGÍA CNC</span>
+                  <h3 class="caminito-title">Mecanizado 5 Ejes <span class="caminito-highlight">±0.02 mm</span></h3>
+                  <p class="caminito-desc">Chasis monobloque fresado desde un lingote macizo de aluminio 6061-T6 aeroespacial con tolerancia micrométrica.</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- Paso 02 (Derecha) -->
+            <li class="caminito-step step-even">
+              <span data-parada="true" class="caminito-parada parada-right">02</span>
+              <div class="caminito-col-wrap">
+                <div data-texto="true" class="caminito-box">
+                  <span class="caminito-badge badge-accent">FASE 02 // TERMOTRANSFER</span>
+                  <h3 class="caminito-title">Cámara de Vapor <span class="caminito-highlight">-14°C</span></h3>
+                  <p class="caminito-desc">Disipación de cambio de fase en cobre sinterizado que elimina todo estrangulamiento térmico a 120 FPS sostenidos.</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- Paso 03 (Izquierda) -->
+            <li class="caminito-step step-odd">
+              <span data-parada="true" class="caminito-parada parada-left">03</span>
+              <div class="caminito-col-wrap">
+                <div data-texto="true" class="caminito-box">
+                  <span class="caminito-badge">FASE 03 // ACÚSTICA</span>
+                  <h3 class="caminito-title">Cámara Anecóica <span class="caminito-highlight">&lt; 17.8 dBA</span></h3>
+                  <p class="caminito-desc">Perfil helicoidal y flujo laminar continuo que disuelven los armónicos audibles del flujo de aire forzado.</p>
+                </div>
+              </div>
+            </li>
+
+            <!-- Paso 04 (Derecha) -->
+            <li class="caminito-step step-even">
+              <span data-parada="true" class="caminito-parada parada-right">04</span>
+              <div class="caminito-col-wrap">
+                <div data-texto="true" class="caminito-box">
+                  <span class="caminito-badge badge-accent">FASE 04 // ENTREGA BESPOKE</span>
+                  <h3 class="caminito-title">Certificado Serial <span class="caminito-highlight">Grabado Láser</span></h3>
+                  <p class="caminito-desc">Placa con número de lote único, calibración térmica certificada por CMM y estuche de transporte aeronáutico.</p>
+                </div>
+              </div>
+            </li>
+          </ol>
+
+          <!-- Cabezal viajero en tiempo real -->
+          <div id="caminito-tracer" class="caminito-tracer" aria-hidden="true">
+            <span class="tracer-glow"></span>
+            <span class="tracer-core"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -236,5 +559,162 @@
     </div>
   </div>
 
+  <!-- Controlador del Caminito de Telemetría SVG Scroll-Driven (Arquitectura Magali Ceriotti) -->
+  <script>
+    (function () {
+      let caminitoTrigger = null;
+
+      // La fórmula matemática exacta de Magali Ceriotti: conecta t con e por su punto medio en Y
+      const c = (t, e) => {
+        const r = ((t.y + e.y) / 2).toFixed(1);
+        return ` C ${t.x.toFixed(1)},${r} ${e.x.toFixed(1)},${r} ${e.x.toFixed(1)},${e.y.toFixed(1)}`;
+      };
+
+      function updateCaminito() {
+        const wrapper = document.getElementById('caminito-wrapper');
+        const svg = document.getElementById('telemetry-caminito-svg');
+        const pathBase = document.getElementById('caminito-track-base');
+        const pathActive = document.getElementById('caminito-track-active');
+        const tracer = document.getElementById('caminito-tracer');
+        const paradas = Array.from(document.querySelectorAll('#caminito-wrapper [data-parada]'));
+        const boxes = Array.from(document.querySelectorAll('#caminito-wrapper [data-texto]'));
+
+        if (!wrapper || !svg || !pathBase || !pathActive || paradas.length === 0) {
+          return null;
+        }
+
+        const wRect = wrapper.getBoundingClientRect();
+        svg.setAttribute('viewBox', `0 0 ${wRect.width} ${wRect.height}`);
+
+        const a = el => {
+          const r = el.getBoundingClientRect();
+          return {
+            x: r.left + r.width / 2 - wRect.left,
+            y: r.top + r.height / 2 - wRect.top
+          };
+        };
+
+        const s = paradas.map(a);
+        const b = { x: s[0].x + (s[1].x - s[0].x) * 0.3, y: -45 };
+        const w = `M ${b.x.toFixed(1)},${b.y.toFixed(1)}`;
+        const T = s.map((t, e) => c(e ? s[e - 1] : b, t));
+
+        // Curva suave de salida hacia la colección
+        const last = s[s.length - 1];
+        const exit = { x: (s[0].x + s[1].x) / 2, y: last.y + 100 };
+        T.push(c(last, exit));
+
+        const M = w + T.join('');
+        pathBase.setAttribute('d', M);
+        pathActive.setAttribute('d', M);
+
+        const totalLength = pathActive.getTotalLength();
+        pathActive.style.strokeDasharray = `${totalLength} ${totalLength}`;
+        pathActive.style.strokeDashoffset = `${totalLength}`;
+
+        return {
+          totalLength,
+          pathActive,
+          tracer,
+          paradas,
+          boxes,
+          wrapper,
+          s
+        };
+      }
+
+      let cachedData = null;
+
+      function renderFrame() {
+        if (!cachedData) {
+          cachedData = updateCaminito();
+          if (!cachedData) return;
+        }
+
+        const rect = cachedData.wrapper.getBoundingClientRect();
+        const vh = window.innerHeight || 800;
+        const startY = vh * 0.80; // Inicia cuando el wrapper entra al 80% del viewport
+        const endY = vh * 0.25;   // Termina cuando llega arriba
+        const totalDistance = rect.height + (startY - endY);
+        const currentDistance = startY - rect.top;
+        const progress = Math.max(0, Math.min(1, currentDistance / totalDistance));
+
+        const drawOffset = cachedData.totalLength * (1 - progress);
+        cachedData.pathActive.style.strokeDashoffset = `${drawOffset}`;
+
+        // Posición fluida del cabezal láser
+        const pt = cachedData.pathActive.getPointAtLength(progress * cachedData.totalLength);
+        if (pt && !isNaN(pt.x) && !isNaN(pt.y) && cachedData.tracer) {
+          cachedData.tracer.style.transform = `translate(${pt.x}px, ${pt.y}px) translate(-50%, -50%)`;
+          cachedData.tracer.style.opacity = progress > 0.01 && progress < 0.99 ? '1' : '0';
+        }
+
+        // Activación sincronizada de paradas y cajas
+        cachedData.s.forEach((_, idx) => {
+          const threshold = (idx + 0.35) / (cachedData.s.length + 0.35);
+          const isPast = progress >= threshold;
+          if (cachedData.paradas[idx]) {
+            cachedData.paradas[idx].classList.toggle('is-active', isPast);
+          }
+          if (cachedData.boxes[idx]) {
+            cachedData.boxes[idx].classList.toggle('is-active', isPast);
+          }
+        });
+
+        // Actualización de telemetría en cabecera
+        const livePill = document.getElementById('telemetry-live-pill');
+        const liveText = livePill ? livePill.querySelector('.live-text') : null;
+        if (liveText) {
+          if (progress < 0.20) {
+            liveText.textContent = 'TELEMETRÍA // PIPELINE DE CALIBRACIÓN';
+          } else if (progress < 0.45) {
+            liveText.textContent = 'FASE 01/04 // TOLERANCIA CNC VALIDADA (±0.02 mm)';
+          } else if (progress < 0.70) {
+            liveText.textContent = 'FASE 02/04 // DELTA TÉRMICO CERTIFICADO (-14°C)';
+          } else if (progress < 0.90) {
+            liveText.textContent = 'FASE 03/04 // SALA ANECÓICA VALIDADA (< 17.8 dBA)';
+          } else {
+            liveText.textContent = 'FASE 04/04 // CERTIFICACIÓN Y ENTREGA BESPOKE';
+          }
+        }
+      }
+
+      let ticking = false;
+      function onScrollTick() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            renderFrame();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      function initCaminitoEngine() {
+        cachedData = updateCaminito();
+        renderFrame();
+
+        window.addEventListener('scroll', onScrollTick, { passive: true });
+
+        // Si Lenis está presente en window
+        if (window.lenis && typeof window.lenis.on === 'function') {
+          window.lenis.on('scroll', onScrollTick);
+        }
+      }
+
+      window.addEventListener('load', () => {
+        setTimeout(initCaminitoEngine, 100);
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          cachedData = updateCaminito();
+          renderFrame();
+        }, 120);
+      });
+    })();
+  </script>
 </body>
 </html>
