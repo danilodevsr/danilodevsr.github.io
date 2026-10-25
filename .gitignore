@@ -2,3 +2,17 @@
 .DS_Store
 **/.DS_Store
 *.backup.*
+
+# ==========================================================
+# Metadatos de macOS/Windows: mantener después de excepciones !
+# Exclusiones portables propias de este repositorio.
+# ==========================================================
+._*
+.DS_Store
+.DS_Store?
+Thumbs.db
+.LSOverride
+.AppleDouble/
+.Spotlight-V100/
+.Trashes/
+.fseventsd/
