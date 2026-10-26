@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frontend Demos & Showroom — danilodevsr</title>
+  
+  <!-- Typography: VoiceBox Editorial Stack -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header class="masthead">
+      <div>
+        <h1 class="logo-title">Showroom Frontend</h1>
+        <p class="sub">Catálogo de interfaces interactivas, maquetas y experimentos web en vivo.</p>
+      </div>
+      <nav class="nav-actions">
+        <a class="btn btn-outline" href="https://danilodevsr.github.io/">← Volver a Inicio</a>
+        <a class="btn btn-primary" href="https://github.com/danilodevsr?tab=repositories" target="_blank" rel="noreferrer">GitHub Repos ↗</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-editorial">
+      <h2 class="hero-headline">Modelos y Diseños Web en Vivo</h2>
+      <p class="hero-lede">
+        Prototipos interactivos desarrollados con <strong>React 19</strong>, <strong>Astro 5</strong>, <strong>Three.js</strong>, <strong>Canvas 2D</strong> y <strong>Tailwind CSS</strong> con foco en rendimiento y animaciones fluidas.
+      </p>
+
+      <div class="search-box">
+        <input class="search" id="search" placeholder="Buscar por tecnología, framework o componente (ej. React, Astro, 3D, Dashboard)..." autocomplete="off" />
+      </div>
+    </section>
+
+    <!-- Filtros de Categoría -->
+    <div class="filters" role="tablist">
+      <button class="filter-btn active" data-category="all">Todos</button>
+      <button class="filter-btn" data-category="landings">Landings & Scrollytelling</button>
+      <button class="filter-btn" data-category="dashboards">Dashboards & Analytics</button>
+      <button class="filter-btn" data-category="3d">Experimentos 3D & WebGL</button>
+    </div>
+
+    <!-- Demos Grid -->
+    <main class="section-block">
+      <div class="section-head">
+        <h2>Catálogo de Maquetas</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="grid" id="demos-grid"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-editorial">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 class="footer-title">danilodevsr</h3>
+          <p class="footer-sub">Ingeniería frontend, arquitectura web y prototipado interactivo.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://danilodevsr.github.io/" class="footer-link">Portal Principal ↗</a>
+          <a href="https://github.com/danilodevsr?tab=repositories" target="_blank" rel="noreferrer" class="footer-link">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> danilodevsr — Showroom Frontend</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script type="module" src="./scripts.js"></script>
+</body>
+</html>

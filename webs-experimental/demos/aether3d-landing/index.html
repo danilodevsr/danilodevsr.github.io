@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aether.js | Motor 3D & Animaciones Espaciales Modernas</title>
+    <meta name="description" content="Librería de JavaScript inspirada en Three.js para incluir animaciones y efectos 3D ultra modernos en cualquier página web." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="./assets/index-CIsS1a_z.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D5PSqkBe.css">
+  </head>
+  <body>
+    <!-- Canvas 3D de WebGL (Fondo Fijo) -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Overlay de Efecto de Ruido / Viñeta -->
+    <div class="vignette-overlay"></div>
+
+    <!-- Barra de Navegación Glassmorphism -->
+    <header class="navbar">
+      <div class="navbar-container">
+        <a href="#" class="brand-logo">
+          <span class="logo-icon">▲</span>
+          <span class="logo-text">AETHER<span class="logo-accent">.JS</span></span>
+          <span class="badge-beta">BETA 2.0</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#hero">Inicio</a>
+          <a href="#despertar">El Motor</a>
+          <a href="#ecosistema">Ecosistema 3D</a>
+          <a href="#playground">Playground</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="#beta-cta" class="btn-glow-sm">Probar Gratis ⚡</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido Scroll-Driven -->
+    <main id="main-content">
+      
+      <!-- Sección 1: Hero (0% - 25% Scroll) -->
+      <section id="hero" class="scroll-section hero-section">
+        <div class="section-container hero-grid">
+          <div class="hero-text-content">
+            <div class="tag-pill">
+              <span class="pulse-dot"></span>
+              <span>INSPIRADA EN THREE.JS — 10X MÁS DINÁMICA</span>
+            </div>
+            <h1 class="hero-title">
+              El Nuevo Estándar para <span class="gradient-text">Animaciones 3D</span> en la Web
+            </h1>
+            <p class="hero-subtitle">
+              Transforma interfaces planas en universos espaciales reactivos al scroll. 
+              Esta página es el ejemplo vivo: haz scroll para encender la laptop 3D y dar luz a la nueva era web.
+            </p>
+            <div class="hero-cta-group">
+              <div class="install-box" id="copy-install">
+                <span class="prompt">$</span>
+                <code class="code-text">npm install aether-3d</code>
+                <button class="copy-btn" id="btn-copy" title="Copiar comando">Copiar</button>
+              </div>
+              <a href="#despertar" class="btn-primary-outline">Ver en Acción ↓</a>
+            </div>
+          </div>
+          <!-- Espacio vacío a la derecha donde la Laptop 3D habita en el canvas -->
+          <div class="hero-spacer"></div>
+        </div>
+        <div class="scroll-indicator">
+          <span class="scroll-label">Desliza para encender el universo</span>
+          <div class="mouse-icon"><div class="wheel"></div></div>
+        </div>
+      </section>
+
+      <!-- Sección 2: Apertura y Luz Volumétrica (25% - 50% Scroll) -->
+      <section id="despertar" class="scroll-section step-section">
+        <div class="section-container">
+          <div class="step-card glass-panel left-aligned">
+            <div class="step-badge">ETAPA 01 // DESPERTAR 3D</div>
+            <h2 class="section-title">Luz Volumétrica y Física Cuántica en 60 FPS</h2>
+            <p class="section-desc">
+              Observa cómo la laptop 3D en pantalla abre su bisagra sincronizada con tu scroll. 
+              Al desplegarse, su pantalla emite haces de luz y partículas volumétricas procedurales calculadas por los shaders de <strong>Aether.js</strong> sin sacrificar el rendimiento ni el tiempo de carga.
+            </p>
+            <ul class="feature-list">
+              <li><strong>Zero-Asset Weight:</strong> Geometrías y texturas metálicas generadas 100% mediante algoritmos en tiempo real.</li>
+              <li><strong>ScrollTrigger Nativo:</strong> Sincronización milimétrica entre tu rueda de scroll y la cinemática de la cámara 3D.</li>
+              <li><strong>Iluminación Dinámica:</strong> Sombra y reflejos PBR (Physically Based Rendering) que reaccionan al cursor.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Ecosistema Multi-Dispositivo (50% - 80% Scroll) -->
+      <section id="ecosistema" class="scroll-section step-section">
+        <div class="section-container">
+          <div class="step-card glass-panel right-aligned">
+            <div class="step-badge">ETAPA 02 // MULTI-ESCALA</div>
+            <h2 class="section-title">La Luz Revela Tres Componentes Vitales</h2>
+            <p class="section-desc">
+              El haz de luz emitido por la laptop da vida a un ecosistema orbital completo flotando frente a tus ojos:
+            </p>
+            <div class="device-grid">
+              <div class="device-item" data-focus="phone">
+                <div class="device-icon">📱</div>
+                <h3>Celular Holográfico</h3>
+                <p>Interfaces móviles y experiencias AR integradas directamente en el DOM con un solo hook.</p>
+              </div>
+              <div class="device-item" data-focus="server">
+                <div class="device-icon">🖥️</div>
+                <h3>Servidor Cloud LED</h3>
+                <p>Torres de datos y nodos interactivos con cables de fibra óptica que laten y transmiten información.</p>
+              </div>
+              <div class="device-item" data-focus="earth">
+                <div class="device-icon">🌍</div>
+                <h3>Planeta Tierra 3D</h3>
+                <p>Globo ciber-espacial con continentes emisivos, atmósfera brillante y satélites en rotación orbital.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 4: Playground Interactivo (80% - 95% Scroll) -->
+      <section id="playground" class="scroll-section playground-section">
+        <div class="section-container">
+          <div class="playground-header text-center">
+            <div class="tag-pill">PLAYGROUND EN VIVO</div>
+            <h2 class="section-title">Tú Tienes el Control del Universo</h2>
+            <p class="section-desc center-desc">
+              Modifica los parámetros en vivo y experimenta la reactividad instantánea del motor 3D.
+            </p>
+          </div>
+
+          <div class="playground-grid">
+            <!-- Panel de Controles -->
+            <div class="control-panel glass-panel">
+              <h3>⚙️ Configuración del Motor</h3>
+              
+              <div class="control-group">
+                <label for="speed-slider">Velocidad de Rotación Orbital <span id="speed-val">1.0x</span></label>
+                <input type="range" id="speed-slider" min="0" max="3" step="0.1" value="1.0" />
+              </div>
+
+              <div class="control-group">
+                <label>Color de Luz Neón</label>
+                <div class="color-presets">
+                  <button class="color-btn active" data-color="#00f0ff" style="background: #00f0ff;" title="Cyber Cyan"></button>
+                  <button class="color-btn" data-color="#ff007b" style="background: #ff007b;" title="Neon Magenta"></button>
+                  <button class="color-btn" data-color="#7000ff" style="background: #7000ff;" title="Quantum Purple"></button>
+                  <button class="color-btn" data-color="#00ff66" style="background: #00ff66;" title="Matrix Green"></button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label for="particle-slider">Densidad de Partículas <span id="particle-val">400</span></label>
+                <input type="range" id="particle-slider" min="50" max="1000" step="50" value="400" />
+              </div>
+
+              <div class="control-actions">
+                <button id="btn-wireframe" class="btn-toggle">✦ Modo Wireframe</button>
+                <button id="btn-explode" class="btn-toggle btn-accent">💥 Vista Expandida</button>
+              </div>
+            </div>
+
+            <!-- Panel de Código -->
+            <div class="code-panel glass-panel">
+              <div class="code-header">
+                <span class="file-name">index.js</span>
+                <span class="code-badge">AETHER 2.0 SYNTAX</span>
+              </div>
+              <pre><code class="language-js"><span class="keyword">import</span> { AetherScene, Laptop, DeviceOrbit } <span class="keyword">from</span> <span class="string">'aether-3d'</span>;
+
+<span class="comment">// 1. Inicializar escena reactiva al scroll</span>
+<span class="keyword">const</span> scene = <span class="keyword">new</span> <span class="class">AetherScene</span>({ canvas: <span class="string">'#webgl-canvas'</span> });
+
+<span class="comment">// 2. Añadir Laptop que se abre al hacer scroll (0% -> 50%)</span>
+<span class="keyword">const</span> laptop = scene.<span class="function">add</span>(<span class="keyword">new</span> <span class="class">Laptop</span>({ 
+  openOnScroll: [<span class="number">0</span>, <span class="number">0.5</span>],
+  lightColor: <span class="string">'#00f0ff'</span> 
+}));
+
+<span class="comment">// 3. Emitir luz y revelar el Celular, Servidor y Tierra (50% -> 100%)</span>
+laptop.<span class="function">onOpenEmit</span>(<span class="keyword">new</span> <span class="class">DeviceOrbit</span>([
+  <span class="string">'smartphone'</span>, <span class="string">'server-tower'</span>, <span class="string">'cyber-earth'</span>
+]));
+
+scene.<span class="function">render</span>();</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 5: Footer CTA (100% Scroll) con Frase Exacta -->
+      <footer id="beta-cta" class="footer-section">
+        <div class="section-container">
+          <div class="cta-banner glass-panel-glow text-center">
+            <div class="cta-glow-bg"></div>
+            <div class="badge-beta-lg">BETA PÚBLICA DISPONIBLE</div>
+            
+            <!-- FRASE EXACTA SOLICITADA POR EL USUARIO -->
+            <h2 class="footer-exact-phrase">
+              Únete gratis a la beta pública y prueba el nuevo mundo 3D.
+            </h2>
+
+            <form id="beta-form" class="beta-form">
+              <input type="email" id="beta-email" placeholder="tu@correo-electronico.com" required />
+              <button type="submit" class="btn-neon-lg">
+                <span>Acceder a la Beta</span>
+                <span class="arrow">→</span>
+              </button>
+            </form>
+            <div id="form-success" class="form-success hidden">
+              ✨ ¡Bienvenido a la revolución 3D! Te hemos enviado el acceso instantáneo y la clave API.
+            </div>
+
+            <div class="footer-bottom-info">
+              <p>© 2026 Aether.js — Creado como demostración interactiva de animaciones espaciales e iluminación 3D en la Web.</p>
+              <div class="footer-links">
+                <a href="#">Github</a>
+                <a href="#">Documentación</a>
+                <a href="#">Comunidad Discord</a>
+                <a href="#">Licencia MIT</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+  </body>
+</html>
