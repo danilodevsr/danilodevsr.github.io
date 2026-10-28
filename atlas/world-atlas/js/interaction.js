@@ -608,6 +608,32 @@
       this.brandTag = document.querySelector('#brand-link .brand-tag');
 
       this._bindEvents();
+      this.mobileBackBtn = document.getElementById('btn-mobile-back');
+      this.mobileBackBtn?.addEventListener('click', () => {
+        const state = State.getState();
+        if (state.selectedDistrict) State.selectDistrict(null);
+        else if (state.currentLevel === 2) {
+          State.selectDivision(null);
+          State.setLevel(1);
+        } else if (state.selectedDivision) State.selectDivision(null);
+        else State.resetToWorld();
+      });
+      const syncNavigation = () => {
+        const state = State.getState();
+        if (this.mobileBackBtn) this.mobileBackBtn.hidden = !state.selectedCountry;
+        this.syncMobileLayout();
+      };
+      State.subscribe((state, event) => {
+        if (event.type !== 'hoverChange') syncNavigation();
+      });
+      const navbar = document.getElementById('navbar');
+      this.navObserver = new ResizeObserver(() => this.syncMobileLayout());
+      if (navbar) this.navObserver.observe(navbar);
+      window.matchMedia('(max-width: 768px)').addEventListener('change', () => {
+        if (window.innerWidth <= 768) this.setMobilePanelState('peek');
+        this.syncMobileLayout();
+      });
+      syncNavigation();
     },
 
     _bindEvents() {
@@ -616,7 +642,9 @@
         this.closeBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           const state = State.getState();
-          if (state.selectedDivision) {
+          if (state.selectedDistrict) {
+            State.selectDistrict(null);
+          } else if (state.selectedDivision) {
             State.selectDivision(null);
           } else {
             State.selectCountry(null);
@@ -626,8 +654,10 @@
 
       // SPEC-14: Control táctil y drag handle para mobile
       if (this.dragHandle) {
+        let suppressClickUntil = 0;
         this.dragHandle.addEventListener('click', (e) => {
           e.stopPropagation();
+          if (Date.now() < suppressClickUntil) return;
           this.toggleMobilePanel();
         });
 
@@ -649,6 +679,7 @@
         this.dragHandle.addEventListener('touchend', (e) => {
           if (e.changedTouches && e.changedTouches.length > 0) {
             const deltaY = e.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(deltaY) > 35) suppressClickUntil = Date.now() + 500;
             if (deltaY < -35) {
               this.setMobilePanelState('expanded');
             } else if (deltaY > 35) {
@@ -863,12 +894,29 @@
     setMobilePanelState(state) {
       if (!this.panelEl) return;
       if (state === 'peek') {
+        this.panelEl.scrollTop = 0;
         this.panelEl.classList.remove('panel-expanded');
         this.panelEl.classList.add('panel-peek');
       } else {
         this.panelEl.classList.remove('panel-peek');
         this.panelEl.classList.add('panel-expanded');
       }
+      const expanded = state === 'expanded';
+      this.dragHandle?.setAttribute('aria-expanded', String(expanded));
+      this.dragHandle?.setAttribute('aria-label', expanded ? 'Ocultar información' : 'Ver información');
+      const toggleText = document.getElementById('panel-toggle-text');
+      if (toggleText) toggleText.textContent = expanded ? 'Ocultar información' : 'Ver información';
+      this.syncMobileLayout();
+    },
+
+    syncMobileLayout() {
+      const app = document.getElementById('app');
+      if (!app) return;
+      const mobile = window.innerWidth <= 768;
+      app.classList.toggle('has-info-panel', mobile && this.panelEl?.classList.contains('panel-visible'));
+      app.classList.toggle('info-expanded', mobile && this.panelEl?.classList.contains('panel-visible') && this.panelEl.classList.contains('panel-expanded'));
+      const navbar = document.getElementById('navbar');
+      if (navbar) app.style.setProperty('--mobile-nav-bottom', `${navbar.getBoundingClientRect().bottom}px`);
     },
 
     show(country) {
@@ -1237,6 +1285,7 @@
      * Sincroniza la UI al cambiar entre niveles L0, L1 y L2 (SPEC-07).
      */
     onLevelChange(level, country) {
+      if (window.innerWidth <= 768 && level > 0) this.setMobilePanelState('peek');
       if (level === 1 && country) {
         const flag = country.flag || '📍';
         const name = country.name_es || country.name || 'Territorio';
@@ -1293,6 +1342,7 @@
         // Indicadores de nivel
         if (this.levelText) this.levelText.textContent = `Nivel 2 · Cartografía Local (${divName})`;
         if (this.brandTag) this.brandTag.textContent = 'L2 · Distritos';
+        if (this.subtitleEl) this.subtitleEl.textContent = `Vista local L2 · ${name}`;
         if (this.badgeLevelEl) this.badgeLevelEl.textContent = 'Nivel L2';
 
         // Acciones

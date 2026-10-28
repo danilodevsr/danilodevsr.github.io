@@ -28,6 +28,7 @@
           <span class="breadcrumb-separator" id="crumb-sep-district" style="display: none;">/</span>
           <span class="breadcrumb-item" data-level="3" id="crumb-district" style="display: none;">Distrito</span>
         </nav>
+        <button type="button" id="btn-mobile-back" aria-label="Volver al nivel anterior" hidden>← Volver</button>
       </div>
 
       <!-- Buscador en Tiempo Real -->
@@ -64,8 +65,9 @@
     <!-- Panel Informativo Lateral Flotante -->
     <aside id="info-panel" class="panel-hidden" aria-labelledby="panel-title">
       <!-- Drag Handle táctil para móviles (SPEC-14) -->
-      <div class="panel-drag-handle" id="panel-drag-handle" role="button" aria-label="Expandir o colapsar panel informativo" tabindex="0">
+      <div class="panel-drag-handle" id="panel-drag-handle" role="button" aria-label="Expandir o colapsar panel informativo" tabindex="0" aria-expanded="false" aria-controls="panel-details">
         <span class="drag-pill"></span>
+        <span id="panel-toggle-text">Ver información</span>
       </div>
 
       <div class="panel-header">
@@ -79,7 +81,7 @@
         <button id="btn-close-panel" class="panel-close-btn" aria-label="Cerrar panel">×</button>
       </div>
 
-      <div class="panel-body">
+      <div class="panel-body" id="panel-details">
         <!-- Rejilla de métricas clave -->
         <div class="panel-metrics-grid">
           <div class="metric-card">

@@ -186,6 +186,7 @@
         this.svg.attr('viewBox', `0 0 ${width} ${height}`);
         this._updateProjectionFit(width, height);
         this._renderAllPaths();
+        if (this._focusedFeature) this.zoomToFeature(this._focusedFeature, 0);
       });
     },
 
@@ -197,7 +198,7 @@
       if (!this.data.worldGeoJson) return;
       // Margen superior de 64px para respetar el Navbar fijo
       const padding = 20;
-      const topPadding = 64;
+      const topPadding = window.innerWidth <= 768 ? (document.getElementById('navbar')?.getBoundingClientRect().bottom || 96) + 48 : 64;
       this.projection.fitExtent(
         [[padding, topPadding], [width - padding, height - padding]],
         this.data.worldGeoJson
@@ -1046,6 +1047,7 @@
      * @param {number} duration Duración en milisegundos (750ms por defecto)
      */
     resetZoom(duration = 750) {
+      this._focusedFeature = null;
       if (!this.svg || !this.zoomBehavior) return;
       this.svg.transition()
         .duration(duration)
@@ -1061,6 +1063,7 @@
     zoomToFeature(geoFeature, duration = 750) {
       if (!geoFeature || !this.svg || !this.zoomBehavior) return;
 
+      this._focusedFeature = geoFeature;
       const bounds = this.pathGenerator.bounds(geoFeature);
       const dx = bounds[1][0] - bounds[0][0];
       const dy = bounds[1][1] - bounds[0][1];
@@ -1075,12 +1078,26 @@
       const isL2 = geoFeature.type === 'FeatureCollection' || 
         (typeof State !== 'undefined' && State.getLevel && State.getLevel() === 2) ||
         ['distrito', 'comuna', 'localidad', 'barrio', 'regi', 'parroquia'].some(t => (geoFeature.properties?.type || '').toLowerCase().includes(t));
-      const maxScaleCeiling = isL2 ? 3500 : 12;
-      const minScaleFloor = isL2 ? 8 : 1;
+      const mobile = window.innerWidth <= 768;
+      const maxScaleCeiling = isL2 || mobile ? 3500 : 12;
+      const minScaleFloor = mobile ? 0.85 : (isL2 ? 8 : 1);
       const paddingRatio = isL2 ? 0.70 : 0.80;
-      const maxDimRatio = Math.max(dx / width, dy / height);
+      // Reserve the compact sheet and toolbar, regardless of its current expansion.
+      // Reading the sheet must not move the camera.
+      let top = 0, bottom = height;
+      if (mobile) {
+        top = (document.getElementById('navbar')?.getBoundingClientRect().bottom || 96) + 48;
+        const appStyle = getComputedStyle(document.getElementById('app'));
+        const sheetHeight = parseFloat(appStyle.getPropertyValue('--mobile-sheet-height')) || 96;
+        const hasSelection = Boolean(State.getState().selectedCountry);
+        const sheet = document.getElementById('info-panel');
+        const safeBottom = sheet ? parseFloat(getComputedStyle(sheet).bottom) || 8 : 8;
+        bottom = height - safeBottom - 70 - (hasSelection ? sheetHeight + 12 : 0);
+        bottom = Math.max(top + 40, bottom);
+      }
+      const maxDimRatio = Math.max(dx / width, dy / (bottom - top));
       const scale = maxDimRatio > 0 ? Math.max(minScaleFloor, Math.min(maxScaleCeiling, paddingRatio / maxDimRatio)) : 1;
-      const translate = [width / 2 - scale * x, height / 2 - scale * y];
+      const translate = [width / 2 - scale * x, (top + bottom) / 2 - scale * y];
 
       const transform = d3.zoomIdentity
         .translate(translate[0], translate[1])
