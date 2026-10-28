@@ -464,6 +464,7 @@ body.landing-page header {
 .showroom-card.card-ifraldas { border-left: 6px solid #01b6bc; }
 .showroom-card.card-voicebox { border-left: 6px solid #EF4444; }
 .showroom-card.card-craft { border-left: 6px solid #0F172A; }
+.showroom-card.card-xbox { border-left: 6px solid #107C10; }
 .showroom-card-badge { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.72rem; font-weight: 700; }
 .skin-tag { border: 1px solid var(--border-color); padding: 0.2rem 0.5rem; background: var(--bg-secondary); font-size: 0.7rem; }
 .showroom-card-title { font-size: 1.35rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.75rem; letter-spacing: -0.02em; color: #000000; }
@@ -675,75 +676,8 @@ body.landing-page footer {
         </div>
       </div>
 
-      <div class="showroom-grid">
-        <article class="showroom-card card-ifraldas">
-          <div>
-            <div class="showroom-card-badge mono uppercase">
-              <span>DEMO 01 // INTERACTIVO</span>
-              <span class="skin-tag">CANVAS & PEDAGOGÍA</span>
-            </div>
-            <h3 class="showroom-card-title">Montessori Home · Pizarras Kids</h3>
-            <p class="showroom-card-desc">
-              Landing page interactiva para producto infantil con simulador de pizarra en tiempo real y selector pedagógico para familias.
-            </p>
-            <div class="showroom-card-specs mono">
-              <span>ENFOQUE: Conversión & Producto Infantil</span>
-              <span>TECNOLOGÍA: Canvas 2D · Interactivo</span>
-            </div>
-          </div>
-          <div class="showroom-card-footer">
-            <a href="/demos/pizarras-kids-learning/" class="btn-brutal" target="_blank" rel="noopener">
-              <span>ABRIR SHOWROOM</span>
-              <span>↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="showroom-card card-voicebox">
-          <div>
-            <div class="showroom-card-badge mono uppercase">
-              <span>DEMO 02 // EDITORIAL</span>
-              <span class="skin-tag">ALTO CONTRASTE</span>
-            </div>
-            <h3 class="showroom-card-title">Thalassa Pacific · Custodia Ecuatorial</h3>
-            <p class="showroom-card-desc">
-              Experiencia editorial inmersiva para iniciativa científica y conservación con audio reactivo y monitoreo satelital en vivo.
-            </p>
-            <div class="showroom-card-specs mono">
-              <span>ENFOQUE: Narrativa de Marca & ONG</span>
-              <span>TECNOLOGÍA: Diseño Editorial · Web Audio</span>
-            </div>
-          </div>
-          <div class="showroom-card-footer">
-            <a href="/demos/thalassa-ocean-guardians/" class="btn-brutal" target="_blank" rel="noopener">
-              <span>ABRIR SHOWROOM</span>
-              <span>↗</span>
-            </a>
-          </div>
-        </article>
-
-        <article class="showroom-card card-craft">
-          <div>
-            <div class="showroom-card-badge mono uppercase">
-              <span>DEMO 03 // BESPOKE</span>
-              <span class="skin-tag">PRODUCTO PREMIUM</span>
-            </div>
-            <h3 class="showroom-card-title">EXUS Customs · Series S Bespoke</h3>
-            <p class="showroom-card-desc">
-              Catálogo interactivo de producto premium con selector visual de aleaciones, acabados mecanizados y sonido posicional.
-            </p>
-            <div class="showroom-card-specs mono">
-              <span>ENFOQUE: Showroom de Lujo & Hardware</span>
-              <span>TECNOLOGÍA: Showcase 3D · Audio Espacial</span>
-            </div>
-          </div>
-          <div class="showroom-card-footer">
-            <a href="/demos/series-s-craft-studio/" class="btn-brutal" target="_blank" rel="noopener">
-              <span>ABRIR SHOWROOM</span>
-              <span>↗</span>
-            </a>
-          </div>
-        </article>
+      <div class="showroom-grid" id="showroom-grid">
+        <!-- Renderizado dinámico en scripts.js -->
       </div>
     </div>
   </section>
@@ -948,30 +882,59 @@ const PROJECTS = [
   // --- SHOWROOM // DEMOS DE ALTO IMPACTO (/demos/) ---
   {
     id: 'D01',
-    title: 'Montessori Home // Pizarras Kids',
-    desc: 'Scrollytelling pedagógico interactivo de pizarras acrílicas. Piel visual iFraldas Design System.',
+    title: 'Montessori Home · Pizarras Kids',
+    desc: 'Landing page interactiva para producto infantil con simulador de pizarra en tiempo real y selector pedagógico para familias.',
     path: '/demos/pizarras-kids-learning/',
     emoji: '🖍️',
     tags: ['Scrollytelling', 'Montessori', 'iFraldas Skin', 'Canvas 2D'],
-    category: 'demos'
+    category: 'demos',
+    showroomBadge: 'DEMO 01 // INTERACTIVO',
+    showroomSkin: 'CANVAS & PEDAGOGÍA',
+    showroomEnfoque: 'Conversión & Producto Infantil',
+    showroomTecnologia: 'Canvas 2D · Interactivo',
+    showroomCardClass: 'card-ifraldas'
   },
   {
     id: 'D02',
-    title: 'Thalassa // Custodia Ecuatorial',
-    desc: 'Expedición oceanográfica y bioacústica marina en el Pacífico. Piel visual editorial VoiceBox.',
+    title: 'Thalassa Pacific · Custodia Ecuatorial',
+    desc: 'Experiencia editorial inmersiva para iniciativa científica y conservación con audio reactivo y monitoreo satelital en vivo.',
     path: '/demos/thalassa-ocean-guardians/',
     emoji: '🐋',
     tags: ['Editorial', 'VoiceBox Skin', 'Lenis', 'Conservación'],
-    category: 'demos'
+    category: 'demos',
+    showroomBadge: 'DEMO 02 // EDITORIAL',
+    showroomSkin: 'ALTO CONTRASTE',
+    showroomEnfoque: 'Narrativa de Marca & ONG',
+    showroomTecnologia: 'Diseño Editorial · Web Audio',
+    showroomCardClass: 'card-voicebox'
   },
   {
     id: 'D03',
-    title: 'EXUS Customs // Series S Titanio CNC',
-    desc: 'Scrollytelling bespoke de Xbox Series S con chasis en titanio y refrigeración axial.',
+    title: 'EXUS Customs · Series S Bespoke',
+    desc: 'Catálogo interactivo de producto premium con selector visual de aleaciones, acabados mecanizados y sonido posicional.',
     path: '/demos/series-s-craft-studio/',
     emoji: '🎮',
     tags: ['Bespoke', 'Titanio CNC', 'Hardware', 'GSAP'],
-    category: 'demos'
+    category: 'demos',
+    showroomBadge: 'DEMO 03 // BESPOKE',
+    showroomSkin: 'PRODUCTO PREMIUM',
+    showroomEnfoque: 'Showroom de Lujo & Hardware',
+    showroomTecnologia: 'Showcase 3D · Audio Espacial',
+    showroomCardClass: 'card-craft'
+  },
+  {
+    id: 'D04',
+    title: 'Xbox Series X · Monolith Next-Gen',
+    desc: 'Showcase brutalista e interactivo de producto con tipografía 3D cilíndrica cinética, curve-swipe y pinned specs.',
+    path: '/demos/xbox-next-gen-showcase/',
+    emoji: '⬛',
+    tags: ['GSAP', 'ScrollTrigger', 'Hardware', 'SplitText'],
+    category: 'demos',
+    showroomBadge: 'DEMO 04 // HARDWARE',
+    showroomSkin: 'GSAP & NEXT-GEN',
+    showroomEnfoque: 'Showroom Brutalista & Hardware',
+    showroomTecnologia: 'GSAP 3 · ScrollTrigger · SplitText',
+    showroomCardClass: 'card-xbox'
   }
 ];
 
@@ -981,6 +944,7 @@ const searchInput = document.getElementById("search-input");
 const projectsGrid = document.getElementById("projects-grid");
 const filterPillsContainer = document.getElementById("filter-pills");
 const featuredGrid = document.getElementById("featured-grid");
+const showroomGrid = document.getElementById("showroom-grid");
 const currentYearSpan = document.getElementById("current-year");
 
 // Estadísticas en Specs Bar
@@ -1051,6 +1015,34 @@ if (featuredGrid) {
       </article>
     `;
   }).join("");
+}
+
+// 3.5. Renderizar Showroom Dinámicamente desde projects.js
+const showroomDemos = PROJECTS.filter(p => p.category === "demos");
+
+if (showroomGrid) {
+  showroomGrid.innerHTML = showroomDemos.map(p => `
+    <article class="showroom-card ${p.showroomCardClass || ''}">
+      <div>
+        <div class="showroom-card-badge mono uppercase">
+          <span>${p.showroomBadge || `DEMO #${p.id}`}</span>
+          <span class="skin-tag">${p.showroomSkin || 'SHOWROOM'}</span>
+        </div>
+        <h3 class="showroom-card-title">${p.title}</h3>
+        <p class="showroom-card-desc">${p.desc}</p>
+        <div class="showroom-card-specs mono">
+          <span>ENFOQUE: ${p.showroomEnfoque || 'Showroom'}</span>
+          <span>TECNOLOGÍA: ${p.showroomTecnologia || (p.tags || []).join(' · ')}</span>
+        </div>
+      </div>
+      <div class="showroom-card-footer">
+        <a href="${p.path}" class="btn-brutal" target="_blank" rel="noopener">
+          <span>ABRIR SHOWROOM</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </article>
+  `).join("");
 }
 
 // 4. Renderizar Filtros Rápidos (Pills)
