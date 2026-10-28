@@ -1187,3 +1187,8 @@ html, body {
   #brand-link .brand-tag { display: none; }
   #search-container { order: 0; flex: 1 1 auto; min-width: 0; }
 }
+
+/* Fuente y ámbito de cada colección local (SPEC-21). */
+.panel-scope { font-size: 0.78rem; line-height: 1.55; color: var(--text-muted); margin: 12px 0; }
+.panel-scope a { color: var(--accent-cyan); }
+.panel-scope[hidden] { display: none; }

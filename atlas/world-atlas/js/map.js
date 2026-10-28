@@ -7,7 +7,7 @@
   if (typeof define === 'function' && define.amd) {
     define(['d3', './state.js'], factory);
   } else if (typeof module === 'object' && module.exports) {
-    module.exports = factory(require('./d3.min.js'), require('./state.js'));
+    module.exports = factory(require('../d3.min.js'), require('./state.js'));
   } else {
     root.WorldMap = factory(root.d3, root.State || root.WorldAtlasState);
   }
@@ -112,7 +112,7 @@
     _setupZoom() {
       this.lastK = 1;
       this.zoomBehavior = d3.zoom()
-        .scaleExtent([0.85, 4000])
+        .scaleExtent([0.85, 100000])
         .on('zoom', (event) => {
           this.zoomGroup.attr('transform', event.transform);
           if (State.labelsVisible) {
@@ -437,6 +437,11 @@
      * Catálogo indexado de datasets cartográficos de Nivel 2 ($O(1)$) (SPEC-12 & SPEC-19).
      */
     capitalDatasets: {
+      'san-juan': 'data/districts/san-juan.geojson',
+      'san juan (puerto rico)': 'data/districts/san-juan.geojson',
+      'cayena': 'data/districts/cayena.geojson',
+      'cayenne (french guiana)': 'data/districts/cayena.geojson',
+      'kingston': 'data/districts/kingston.geojson',
       // Fase 1: América del Sur (7)
       'lima': 'data/districts/lima.geojson',
       'lima province': 'data/districts/lima.geojson',
@@ -663,6 +668,16 @@
         return null;
       }
 
+      // New local collections must not match homonymous divisions in another country.
+      const datasetCountries = {
+        'data/districts/san-juan.geojson': ['puerto rico'],
+        'data/districts/cayena.geojson': ['french guiana', 'guayana francesa'],
+        'data/districts/kingston.geojson': ['jamaica'],
+        'data/districts/monaco.geojson': ['monaco', 'mónaco'],
+        'data/districts/singapur.geojson': ['singapore', 'singapur']
+      };
+      if (normCountry && datasetCountries[targetPath] && !datasetCountries[targetPath].includes(normCountry)) return null;
+
       try {
         let resp = await fetch(targetPath);
         // Fallback histórico para Lima si targetPath directo falla
@@ -733,6 +748,10 @@
         return { success: false, count: 0, reason: 'no_geometries', divisionName: divName };
       }
 
+      if (State.getLevel() !== 2 || State.getState().selectedDivision !== division) return {success: false, reason: 'stale_selection'};
+      this.activeLocalData = geojson;
+      globalThis.WorldInteraction?.InfoPanel?.setLocalScope(geojson);
+
       // 1. Atenuación de fondo a la capa L1 (.dimmed-layer) (SPEC-10)
       if (this.layers?.subdivisions) {
         this.layers.subdivisions.classed('dimmed-layer', true);
@@ -776,6 +795,8 @@
      * Limpia la capa distrital y restaura la vista L1 (SPEC-10).
      */
     clearL2() {
+      this.activeLocalData = null;
+      globalThis.WorldInteraction?.InfoPanel?.setLocalScope();
       if (this.layers?.districts) {
         this.layers.districts.selectAll('*').remove();
       }
@@ -1079,12 +1100,12 @@
         (typeof State !== 'undefined' && State.getLevel && State.getLevel() === 2) ||
         ['distrito', 'comuna', 'localidad', 'barrio', 'regi', 'parroquia'].some(t => (geoFeature.properties?.type || '').toLowerCase().includes(t));
       const mobile = window.innerWidth <= 768;
-      const maxScaleCeiling = isL2 || mobile ? 3500 : 12;
+      const maxScaleCeiling = 100000;
       const minScaleFloor = mobile ? 0.85 : (isL2 ? 8 : 1);
       const paddingRatio = isL2 ? 0.70 : 0.80;
       // Reserve the compact sheet and toolbar, regardless of its current expansion.
       // Reading the sheet must not move the camera.
-      let top = 0, bottom = height;
+      let top = 0, bottom = height, left = 0, right = width;
       if (mobile) {
         top = (document.getElementById('navbar')?.getBoundingClientRect().bottom || 96) + 48;
         const appStyle = getComputedStyle(document.getElementById('app'));
@@ -1095,9 +1116,17 @@
         bottom = height - safeBottom - 70 - (hasSelection ? sheetHeight + 12 : 0);
         bottom = Math.max(top + 40, bottom);
       }
-      const maxDimRatio = Math.max(dx / width, dy / (bottom - top));
+      if (!mobile) {
+        const panel = document.getElementById('info-panel');
+        if (panel?.classList.contains('panel-visible')) {
+          const panelLeft = panel.getBoundingClientRect().left;
+          if (panelLeft > width * 0.3) right = panelLeft - 16;
+        }
+        top = (document.getElementById('navbar')?.getBoundingClientRect().bottom || 64) + 12;
+      }
+      const maxDimRatio = Math.max(dx / (right - left), dy / (bottom - top));
       const scale = maxDimRatio > 0 ? Math.max(minScaleFloor, Math.min(maxScaleCeiling, paddingRatio / maxDimRatio)) : 1;
-      const translate = [width / 2 - scale * x, (top + bottom) / 2 - scale * y];
+      const translate = [(left + right) / 2 - scale * x, (top + bottom) / 2 - scale * y];
 
       const transform = d3.zoomIdentity
         .translate(translate[0], translate[1])

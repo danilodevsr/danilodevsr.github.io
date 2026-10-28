@@ -156,8 +156,8 @@
     "population": 68200000.0,
     "flag": "🇫🇷",
     "hasLevel1": true,
-    "divisionsCount": 101,
-    "fact": "El país que abarca más husos horarios del mundo (12) gracias a sus territorios de ultramar repartidos en todos los océanos."
+    "divisionsCount": 98,
+    "fact": "Francia tiene su capital en París. Guayana Francesa, Guadalupe, Martinica, San Martín y San Bartolomé disponen de entradas geográficas propias, conservando su vínculo con Francia."
   },
   "South Africa": {
     "name_es": "Sudáfrica",
@@ -312,12 +312,15 @@
   "Guatemala": {
     "name_es": "Guatemala",
     "capital": "Ciudad de Guatemala",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 18929989.0,
     "flag": "🇬🇹",
     "hasLevel1": true,
     "divisionsCount": 22,
-    "fact": "Corazón de la civilización maya con templos monumentales en Tikal rodeados de densa selva tropical petenera."
+    "fact": "Corazón de la civilización maya con templos monumentales en Tikal rodeados de densa selva tropical petenera.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Ecuador": {
     "name_es": "Ecuador",
@@ -336,7 +339,7 @@
     "population": 17900000.0,
     "flag": "🇳🇱",
     "hasLevel1": true,
-    "divisionsCount": 14,
+    "divisionsCount": 12,
     "fact": "Aproximadamente un tercio de su territorio se encuentra por debajo del nivel del mar, protegido por canales, pólderes y diques."
   },
   "Afghanistan": {
@@ -462,12 +465,15 @@
   "The Bahamas": {
     "name_es": "Bahamas",
     "capital": "Nasáu",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 410000,
     "flag": "🇧🇸",
     "hasLevel1": true,
     "divisionsCount": 30,
-    "fact": "Archipiélago coralino de más de 700 islas y cayos con algunas de las aguas oceánicas más cristalinas del Caribe."
+    "fact": "Archipiélago coralino de más de 700 islas y cayos con algunas de las aguas oceánicas más cristalinas del Caribe.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Bosnia and Herzegovina": {
     "name_es": "Bosnia y Herzegovina",
@@ -492,12 +498,15 @@
   "Belize": {
     "name_es": "Belice",
     "capital": "Belmopán",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 410000,
     "flag": "🇧🇿",
     "hasLevel1": true,
     "divisionsCount": 6,
-    "fact": "Alberga el Gran Agujero Azul (Great Blue Hole), un sumidero marino colosal visible desde el espacio."
+    "fact": "Alberga el Gran Agujero Azul (Great Blue Hole), un sumidero marino colosal visible desde el espacio.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Brunei": {
     "name_es": "Brunéi",
@@ -792,12 +801,15 @@
   "Guyana": {
     "name_es": "Guyana",
     "capital": "Georgetown",
-    "continent": "América Latina",
+    "continent": "América del Sur",
     "population": 810000,
     "flag": "🇬🇾",
     "hasLevel1": true,
     "divisionsCount": 10,
-    "fact": "Hogar de las cataratas Kaieteur, una de las caídas de agua de un solo salto más poderosas del planeta."
+    "fact": "Hogar de las cataratas Kaieteur, una de las caídas de agua de un solo salto más poderosas del planeta.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Croatia": {
     "name_es": "Croacia",
@@ -852,12 +864,15 @@
   "Jamaica": {
     "name_es": "Jamaica",
     "capital": "Kingston",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 2830000,
     "flag": "🇯🇲",
     "hasLevel1": true,
     "divisionsCount": 14,
-    "fact": "Cuna del ritmo reggae y del café Blue Mountain, cultivado en nieblas constantes en las montañas orientales."
+    "fact": "Cuna del ritmo reggae y del café Blue Mountain, cultivado en nieblas constantes en las montañas orientales.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Jordan": {
     "name_es": "Jordania",
@@ -1192,12 +1207,15 @@
   "Puerto Rico": {
     "name_es": "Puerto Rico",
     "capital": "San Juan",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 3210000,
     "flag": "🇵🇷",
-    "hasLevel1": false,
-    "divisionsCount": 1,
-    "fact": "Isla caribeña con la bahía bioluminiscente de Mosquito en Vieques y el bosque nacional tropical de El Yunque."
+    "hasLevel1": true,
+    "divisionsCount": 78,
+    "fact": "Isla caribeña con la bahía bioluminiscente de Mosquito en Vieques y el bosque nacional tropical de El Yunque.",
+    "territoryOf": "Estados Unidos",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units"
   },
   "North Korea": {
     "name_es": "Corea del Norte",
@@ -1342,12 +1360,15 @@
   "Suriname": {
     "name_es": "Surinam",
     "capital": "Paramaribo",
-    "continent": "América Latina",
+    "continent": "América del Sur",
     "population": 620000,
     "flag": "🇸🇷",
     "hasLevel1": true,
     "divisionsCount": 10,
-    "fact": "El país con mayor porcentaje de cobertura selvática del mundo (más del 93% cubierto por la selva amazónica virgen)."
+    "fact": "El país con mayor porcentaje de cobertura selvática del mundo (más del 93% cubierto por la selva amazónica virgen).",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Slovakia": {
     "name_es": "Eslovaquia",
@@ -1442,12 +1463,15 @@
   "Trinidad and Tobago": {
     "name_es": "Trinidad y Tobago",
     "capital": "Puerto España",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 1530000,
     "flag": "🇹🇹",
     "hasLevel1": true,
     "divisionsCount": 16,
-    "fact": "Alberga el Pitch Lake, el depósito natural de asfalto líquido más grande del mundo, y es cuna de la música Calipso."
+    "fact": "Alberga el Pitch Lake, el depósito natural de asfalto líquido más grande del mundo, y es cuna de la música Calipso.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Tunisia": {
     "name_es": "Túnez",
@@ -1572,12 +1596,15 @@
   "Haiti": {
     "name_es": "Haití",
     "capital": "Puerto Príncipe",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 12729994.0,
     "flag": "🇭🇹",
     "hasLevel1": true,
     "divisionsCount": 10,
-    "fact": "Primera república independiente de América Latina y primera nación fundada por personas esclavizadas tras su revolución en 1804."
+    "fact": "Primera república independiente de América Latina y primera nación fundada por personas esclavizadas tras su revolución en 1804.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Belgium": {
     "name_es": "Bélgica",
@@ -1592,32 +1619,41 @@
   "Honduras": {
     "name_es": "Honduras",
     "capital": "Tegucigalpa",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 11189992.0,
     "flag": "🇭🇳",
     "hasLevel1": true,
     "divisionsCount": 18,
-    "fact": "Alberga las ruinas mayas de Copán, famosas por sus estelas talladas y la escalinata de jeroglíficos más larga de América."
+    "fact": "Alberga las ruinas mayas de Copán, famosas por sus estelas talladas y la escalinata de jeroglíficos más larga de América.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Cuba": {
     "name_es": "Cuba",
     "capital": "La Habana",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 11019993.0,
     "flag": "🇨🇺",
     "hasLevel1": true,
     "divisionsCount": 16,
-    "fact": "La mayor isla del Caribe, con arquitectura colonial conservada y el Parque Nacional Alejandro de Humboldt."
+    "fact": "La mayor isla del Caribe, con arquitectura colonial conservada y el Parque Nacional Alejandro de Humboldt.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Dominican Republic": {
     "name_es": "República Dominicana",
     "capital": "Santo Domingo",
-    "continent": "América Latina",
+    "continent": "Caribe",
     "population": 10979983.0,
     "flag": "🇩🇴",
     "hasLevel1": true,
     "divisionsCount": 32,
-    "fact": "Santo Domingo alberga la primera catedral, castillo y monasterio construidos en el continente americano."
+    "fact": "Santo Domingo alberga la primera catedral, castillo y monasterio construidos en el continente americano.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Sweden": {
     "name_es": "Suecia",
@@ -1682,12 +1718,15 @@
   "Nicaragua": {
     "name_es": "Nicaragua",
     "capital": "Managua",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 6809991.0,
     "flag": "🇳🇮",
     "hasLevel1": true,
     "divisionsCount": 17,
-    "fact": "Alberga el lago Cocibolca, el mayor lago de agua dulce de Centroamérica y el único donde habitan tiburones toro adaptados."
+    "fact": "Alberga el lago Cocibolca, el mayor lago de agua dulce de Centroamérica y el único donde habitan tiburones toro adaptados.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Paraguay": {
     "name_es": "Paraguay",
@@ -1702,12 +1741,15 @@
   "El Salvador": {
     "name_es": "El Salvador",
     "capital": "San Salvador",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 6429992.0,
     "flag": "🇸🇻",
     "hasLevel1": true,
     "divisionsCount": 14,
-    "fact": "Conocido como la 'Tierra de Volcanes'; el país más pequeño y densamente poblado de América Central continental."
+    "fact": "Conocido como la 'Tierra de Volcanes'; el país más pequeño y densamente poblado de América Central continental.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Singapore": {
     "name_es": "Singapur",
@@ -1717,7 +1759,9 @@
     "flag": "🇸🇬",
     "hasLevel1": false,
     "divisionsCount": 55,
-    "fact": "Ciudad-estado insular hiperconectada con una de las mayores coberturas de jardines verticales y conservación botánica urbana."
+    "fact": "Ciudad-estado insular hiperconectada con una de las mayores coberturas de jardines verticales y conservación botánica urbana.",
+    "administrativeStatus": "Estado soberano",
+    "localEntityType": "Ciudad-Estado"
   },
   "Norway": {
     "name_es": "Noruega",
@@ -1732,12 +1776,15 @@
   "Costa Rica": {
     "name_es": "Costa Rica",
     "capital": "San José",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 5419996.0,
     "flag": "🇨🇷",
     "hasLevel1": true,
     "divisionsCount": 7,
-    "fact": "Alberga el 5% de la biodiversidad planetaria en sólo el 0.03% de la masa terrestre; abolió su ejército en 1948."
+    "fact": "Alberga el 5% de la biodiversidad planetaria en sólo el 0.03% de la masa terrestre; abolió su ejército en 1948.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Ireland": {
     "name_es": "Irlanda",
@@ -1762,12 +1809,15 @@
   "Panama": {
     "name_es": "Panamá",
     "capital": "Ciudad de Panamá",
-    "continent": "América Latina",
+    "continent": "Centroamérica",
     "population": 4619994.0,
     "flag": "🇵🇦",
     "hasLevel1": true,
     "divisionsCount": 12,
-    "fact": "Istmo geográfico que une Norte y Sudamérica; su Canal interoceánico conecta el Atlántico con el Pacífico desde 1914."
+    "fact": "Istmo geográfico que une Norte y Sudamérica; su Canal interoceánico conecta el Atlántico con el Pacífico desde 1914.",
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units"
   },
   "Uruguay": {
     "name_es": "Uruguay",
@@ -1786,7 +1836,278 @@
     "population": 39000,
     "flag": "🇲🇨",
     "hasLevel1": false,
-    "divisionsCount": 9,
-    "fact": "El segundo estado soberano más pequeño y con la mayor densidad de población del mundo, sede del circuito urbano de Montecarlo."
+    "divisionsCount": 0,
+    "fact": "El segundo estado soberano más pequeño y con la mayor densidad de población del mundo, sede del circuito urbano de Montecarlo.",
+    "administrativeStatus": "Estado soberano",
+    "localEntityType": "Ciudad-Estado"
+  },
+  "Anguilla": {
+    "name_es": "Anguila",
+    "capital": "The Valley",
+    "continent": "Caribe",
+    "flag": "🇦🇮",
+    "hasLevel1": true,
+    "divisionsCount": 15,
+    "territoryOf": "Reino Unido",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "Anguila forma parte del Caribe. Está vinculado administrativamente a Reino Unido."
+  },
+  "Antigua and Barbuda": {
+    "name_es": "Antigua y Barbuda",
+    "capital": "Saint John’s",
+    "continent": "Caribe",
+    "flag": "🇦🇬",
+    "hasLevel1": true,
+    "divisionsCount": 8,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "Antigua y Barbuda forma parte del Caribe. Su capital es Saint John’s."
+  },
+  "Aruba": {
+    "name_es": "Aruba",
+    "capital": "Oranjestad",
+    "continent": "Caribe",
+    "flag": "🇦🇼",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Reino de los Países Bajos",
+    "administrativeStatus": "País constituyente",
+    "source": "natural-earth-map-units",
+    "fact": "Aruba forma parte del Caribe. Está vinculado administrativamente a Reino de los Países Bajos."
+  },
+  "Barbados": {
+    "name_es": "Barbados",
+    "capital": "Bridgetown",
+    "continent": "Caribe",
+    "flag": "🇧🇧",
+    "hasLevel1": true,
+    "divisionsCount": 11,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "Barbados forma parte del Caribe. Su capital es Bridgetown."
+  },
+  "Caribbean Netherlands": {
+    "name_es": "Bonaire, San Eustaquio y Saba",
+    "capital": "Kralendijk / Oranjestad / The Bottom",
+    "continent": "Caribe",
+    "flag": "🇧🇶",
+    "hasLevel1": true,
+    "divisionsCount": 3,
+    "territoryOf": "Países Bajos",
+    "administrativeStatus": "Municipios especiales",
+    "source": "natural-earth-map-units",
+    "fact": "Bonaire, San Eustaquio y Saba forma parte del Caribe. Está vinculado administrativamente a Países Bajos."
+  },
+  "British Virgin Islands": {
+    "name_es": "Islas Vírgenes Británicas",
+    "capital": "Road Town",
+    "continent": "Caribe",
+    "flag": "🇻🇬",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Reino Unido",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "Islas Vírgenes Británicas forma parte del Caribe. Está vinculado administrativamente a Reino Unido."
+  },
+  "Cayman Islands": {
+    "name_es": "Islas Caimán",
+    "capital": "George Town",
+    "continent": "Caribe",
+    "flag": "🇰🇾",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Reino Unido",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "Islas Caimán forma parte del Caribe. Está vinculado administrativamente a Reino Unido."
+  },
+  "Curaçao": {
+    "name_es": "Curazao",
+    "capital": "Willemstad",
+    "continent": "Caribe",
+    "flag": "🇨🇼",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Reino de los Países Bajos",
+    "administrativeStatus": "País constituyente",
+    "source": "natural-earth-map-units",
+    "fact": "Curazao forma parte del Caribe. Está vinculado administrativamente a Reino de los Países Bajos."
+  },
+  "Dominica": {
+    "name_es": "Dominica",
+    "capital": "Roseau",
+    "continent": "Caribe",
+    "flag": "🇩🇲",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "Dominica forma parte del Caribe. Su capital es Roseau."
+  },
+  "Grenada": {
+    "name_es": "Granada",
+    "capital": "Saint George’s",
+    "continent": "Caribe",
+    "flag": "🇬🇩",
+    "hasLevel1": true,
+    "divisionsCount": 7,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "Granada forma parte del Caribe. Su capital es Saint George’s."
+  },
+  "Guadeloupe": {
+    "name_es": "Guadalupe",
+    "capital": "Basse-Terre",
+    "continent": "Caribe",
+    "flag": "🇬🇵",
+    "hasLevel1": true,
+    "divisionsCount": 32,
+    "territoryOf": "Francia",
+    "administrativeStatus": "Territorio francés de ultramar",
+    "source": "natural-earth-map-units",
+    "fact": "Guadalupe forma parte del Caribe. Está vinculado administrativamente a Francia."
+  },
+  "Martinique": {
+    "name_es": "Martinica",
+    "capital": "Fort-de-France",
+    "continent": "Caribe",
+    "flag": "🇲🇶",
+    "hasLevel1": true,
+    "divisionsCount": 34,
+    "territoryOf": "Francia",
+    "administrativeStatus": "Territorio francés de ultramar",
+    "source": "natural-earth-map-units",
+    "fact": "Martinica forma parte del Caribe. Está vinculado administrativamente a Francia."
+  },
+  "Montserrat": {
+    "name_es": "Montserrat",
+    "capital": "Brades (sede de gobierno)",
+    "continent": "Caribe",
+    "flag": "🇲🇸",
+    "hasLevel1": true,
+    "divisionsCount": 3,
+    "territoryOf": "Reino Unido",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "Montserrat forma parte del Caribe. Está vinculado administrativamente a Reino Unido."
+  },
+  "Saint Barthelemy": {
+    "name_es": "San Bartolomé",
+    "capital": "Gustavia",
+    "continent": "Caribe",
+    "flag": "🇧🇱",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Francia",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "San Bartolomé forma parte del Caribe. Está vinculado administrativamente a Francia."
+  },
+  "Saint Kitts and Nevis": {
+    "name_es": "San Cristóbal y Nieves",
+    "capital": "Basseterre",
+    "continent": "Caribe",
+    "flag": "🇰🇳",
+    "hasLevel1": true,
+    "divisionsCount": 14,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "San Cristóbal y Nieves forma parte del Caribe. Su capital es Basseterre."
+  },
+  "Saint Lucia": {
+    "name_es": "Santa Lucía",
+    "capital": "Castries",
+    "continent": "Caribe",
+    "flag": "🇱🇨",
+    "hasLevel1": true,
+    "divisionsCount": 10,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "Santa Lucía forma parte del Caribe. Su capital es Castries."
+  },
+  "Saint Martin": {
+    "name_es": "San Martín (parte francesa)",
+    "capital": "Marigot",
+    "continent": "Caribe",
+    "flag": "🇲🇫",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Francia",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "San Martín (parte francesa) forma parte del Caribe. Está vinculado administrativamente a Francia."
+  },
+  "Saint Vincent and the Grenadines": {
+    "name_es": "San Vicente y las Granadinas",
+    "capital": "Kingstown",
+    "continent": "Caribe",
+    "flag": "🇻🇨",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "territoryOf": null,
+    "administrativeStatus": "Estado soberano",
+    "source": "natural-earth-map-units",
+    "fact": "San Vicente y las Granadinas forma parte del Caribe. Su capital es Kingstown."
+  },
+  "Sint Maarten": {
+    "name_es": "Sint Maarten (parte neerlandesa)",
+    "capital": "Philipsburg",
+    "continent": "Caribe",
+    "flag": "🇸🇽",
+    "hasLevel1": false,
+    "divisionsCount": 0,
+    "territoryOf": "Reino de los Países Bajos",
+    "administrativeStatus": "País constituyente",
+    "source": "natural-earth-map-units",
+    "fact": "Sint Maarten (parte neerlandesa) forma parte del Caribe. Está vinculado administrativamente a Reino de los Países Bajos."
+  },
+  "Turks and Caicos Islands": {
+    "name_es": "Islas Turcas y Caicos",
+    "capital": "Cockburn Town",
+    "continent": "Caribe",
+    "flag": "🇹🇨",
+    "hasLevel1": true,
+    "divisionsCount": 6,
+    "territoryOf": "Reino Unido",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "Islas Turcas y Caicos forma parte del Caribe. Está vinculado administrativamente a Reino Unido."
+  },
+  "United States Virgin Islands": {
+    "name_es": "Islas Vírgenes de Estados Unidos",
+    "capital": "Charlotte Amalie",
+    "continent": "Caribe",
+    "flag": "🇻🇮",
+    "hasLevel1": true,
+    "divisionsCount": 3,
+    "territoryOf": "Estados Unidos",
+    "administrativeStatus": "Territorio vinculado",
+    "source": "natural-earth-map-units",
+    "fact": "Islas Vírgenes de Estados Unidos forma parte del Caribe. Está vinculado administrativamente a Estados Unidos."
+  },
+  "French Guiana": {
+    "name_es": "Guayana Francesa",
+    "capital": "Cayena",
+    "continent": "América del Sur",
+    "flag": "🇬🇫",
+    "hasLevel1": true,
+    "divisionsCount": 22,
+    "territoryOf": "Francia",
+    "administrativeStatus": "Territorio francés de ultramar",
+    "source": "natural-earth-map-units",
+    "fact": "Territorio de América del Sur cuya cabecera es Cayena, vinculado administrativamente a Francia.",
+    "aliases": [
+      "Guyana Francesa",
+      "Guyane",
+      "Guyane française"
+    ]
   }
 }

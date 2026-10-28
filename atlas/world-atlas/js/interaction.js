@@ -117,6 +117,7 @@
         const meta = countriesMeta[name] || countriesMeta[id] || {};
 
         return {
+          ...meta,
           feature,
           id,
           name,
@@ -129,7 +130,7 @@
           hasLevel1: meta.hasLevel1 !== false && ((meta.divisionsCount || 0) > 0),
           // Campos normalizados para búsqueda de alta velocidad
           normName: normalizeStr(name),
-          normNameEs: normalizeStr(meta.name_es || ''),
+          normNameEs: normalizeStr([meta.name_es || '', ...(meta.aliases || [])].join(' ')),
           normCapital: normalizeStr(meta.capital || ''),
           normId: normalizeStr(id)
         };
@@ -250,7 +251,7 @@
             <span class="search-result-flag">${res.flag}</span>
             <div class="search-result-info">
               <span class="search-result-name">${res.name_es}</span>
-              <span class="search-result-meta">${res.capital ? `Capital: ${res.capital} · ` : ''}${res.continent || 'Mundo'}</span>
+              <span class="search-result-meta">${res.capital ? `${res.territoryOf ? 'Sede' : 'Capital'}: ${res.capital} · ` : ''}${res.continent || 'Mundo'}</span>
             </div>
           `;
 
@@ -294,7 +295,10 @@
         continent: item.continent,
         fact: item.fact,
         divisionsCount: item.divisionsCount,
-        hasLevel1: item.hasLevel1
+        hasLevel1: item.hasLevel1,
+        territoryOf: item.territoryOf,
+        administrativeStatus: item.administrativeStatus,
+        localEntityType: item.localEntityType
       });
     },
 
@@ -342,6 +346,7 @@
       'Special Municipality': 'Municipio Especial',
       'County': 'Condado',
       'Municipality': 'Municipio',
+      'Commune': 'Municipio (comuna)',
       'District': 'Distrito',
       'Territory': 'Territorio',
       'City': 'Ciudad',
@@ -398,6 +403,9 @@
    * Mapea país a los identificadores de división territorial en Natural Earth.
    */
   const COUNTRY_CAPITAL_SHORTCUTS = {
+    'puerto rico': { capital: 'San Juan', divisionQuery: 'san juan', slug: 'san-juan', type: 'Barrios' },
+    'french guiana': { capital: 'Cayena y CACL', divisionQuery: 'cayenne', slug: 'cayena', type: 'Municipios de CACL' },
+    'jamaica': { capital: 'Kingston y Saint Andrew', divisionQuery: 'kingston', slug: 'kingston', type: 'Comunidades (2017)' },
     // --- Fase 1: América del Sur (7) ---
     'chile': { capital: 'Santiago', divisionQuery: 'región metropolitana de santiago', slug: 'santiago', type: 'Comunas' },
     'argentina': { capital: 'Buenos Aires (CABA)', divisionQuery: 'ciudad de buenos aires', slug: 'buenos-aires', type: 'Comunas' },
@@ -412,22 +420,22 @@
     // --- Fase 2: América del Norte, Central y Caribe (15 Graduadas SPEC-18/19) ---
     'paraguay': { capital: 'Asunción', divisionQuery: 'asunción', slug: 'asuncion', type: 'Barrios' },
     'venezuela': { capital: 'Caracas', divisionQuery: 'distrito capital', slug: 'caracas', type: 'Parroquias' },
-    'bolivia': { capital: 'La Paz', divisionQuery: 'la paz', slug: 'la-paz', type: 'Macrodistritos' },
+    'bolivia': { capital: 'La Paz', divisionQuery: 'la paz', slug: 'la-paz', type: 'Municipios metropolitanos' },
     'mexico': { capital: 'Ciudad de México', divisionQuery: 'distrito federal', slug: 'cdmx', type: 'Alcaldías' },
     'méxico': { capital: 'Ciudad de México', divisionQuery: 'distrito federal', slug: 'cdmx', type: 'Alcaldías' },
     'costa rica': { capital: 'San José', divisionQuery: 'san josé', slug: 'san-jose', type: 'Distritos' },
     'panama': { capital: 'Ciudad de Panamá', divisionQuery: 'panama', slug: 'ciudad-de-panama', type: 'Corregimientos' },
     'panamá': { capital: 'Ciudad de Panamá', divisionQuery: 'panama', slug: 'ciudad-de-panama', type: 'Corregimientos' },
     'cuba': { capital: 'La Habana', divisionQuery: 'ciudad de la habana', slug: 'la-habana', type: 'Municipios' },
-    'dominican republic': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Circunscripciones' },
-    'república dominicana': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Circunscripciones' },
-    'republica dominicana': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Circunscripciones' },
-    'guatemala': { capital: 'Ciudad de Guatemala', divisionQuery: 'guatemala', slug: 'ciudad-de-guatemala', type: 'Zonas' },
+    'dominican republic': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Municipios del Gran Santo Domingo' },
+    'república dominicana': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Municipios del Gran Santo Domingo' },
+    'republica dominicana': { capital: 'Santo Domingo', divisionQuery: 'distrito nacional', slug: 'santo-domingo', type: 'Municipios del Gran Santo Domingo' },
+    'guatemala': { capital: 'Ciudad de Guatemala', divisionQuery: 'guatemala', slug: 'ciudad-de-guatemala', type: 'Municipios metropolitanos' },
     'el salvador': { capital: 'San Salvador', divisionQuery: 'san salvador', slug: 'san-salvador', type: 'Distritos' },
-    'honduras': { capital: 'Tegucigalpa', divisionQuery: 'francisco morazán', slug: 'tegucigalpa', type: 'Barrios y Colonias' },
-    'nicaragua': { capital: 'Managua', divisionQuery: 'managua', slug: 'managua', type: 'Distritos' },
-    'haiti': { capital: 'Puerto Príncipe', divisionQuery: 'ouest', slug: 'puerto-principe', type: 'Secciones Comunales' },
-    'haití': { capital: 'Puerto Príncipe', divisionQuery: 'ouest', slug: 'puerto-principe', type: 'Secciones Comunales' },
+    'honduras': { capital: 'Tegucigalpa', divisionQuery: 'francisco morazán', slug: 'tegucigalpa', type: 'Municipios de Francisco Morazán' },
+    'nicaragua': { capital: 'Managua', divisionQuery: 'managua', slug: 'managua', type: 'Municipios del departamento' },
+    'haiti': { capital: 'Puerto Príncipe', divisionQuery: 'ouest', slug: 'puerto-principe', type: 'Comunas metropolitanas' },
+    'haití': { capital: 'Puerto Príncipe', divisionQuery: 'ouest', slug: 'puerto-principe', type: 'Comunas metropolitanas' },
     'united states': { capital: 'Washington D.C.', divisionQuery: 'district of columbia', slug: 'washington-dc', type: 'Wards' },
     'estados unidos': { capital: 'Washington D.C.', divisionQuery: 'district of columbia', slug: 'washington-dc', type: 'Wards' },
     'canada': { capital: 'Ottawa', divisionQuery: 'ontario', slug: 'ottawa', type: 'Wards' },
@@ -830,7 +838,7 @@
           }
 
           const divName = targetFeature?.properties?.name || shortcut.capital;
-          const rawType = targetFeature?.properties?.type || 'Distrito Federal';
+          const rawType = targetFeature?.properties?.type || country.localEntityType || 'Entidad local';
           const typeEs = formatDivisionType(rawType);
           const meta = WorldMap.getSubdivisionMeta(countryName, divName) || {};
           const population = meta.population || targetFeature?.properties?.population;
@@ -919,7 +927,25 @@
       if (navbar) app.style.setProperty('--mobile-nav-bottom', `${navbar.getBoundingClientRect().bottom}px`);
     },
 
+    setLocalScope(data = null) {
+      const el = document.getElementById('panel-scope');
+      if (!el) return;
+      el.replaceChildren();
+      el.hidden = !data?.scope;
+      if (!data?.scope) return;
+      el.append(document.createTextNode(data.scope));
+      if (data.sourceUrl?.startsWith('https://')) {
+        const link = document.createElement('a');
+        link.href = data.sourceUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = ' Consultar fuente';
+        el.append(link);
+      }
+    },
+
     show(country) {
+      this.setLocalScope();
       if (!this.panelEl || !country) return;
 
       const flag = country.flag || '🏳️';
@@ -935,11 +961,11 @@
       // Encabezado
       if (this.flagEl) this.flagEl.textContent = flag;
       if (this.titleEl) this.titleEl.textContent = nameEs;
-      if (this.subtitleEl) this.subtitleEl.textContent = `Nivel 0 · Soberano${nameEn}`;
+      if (this.subtitleEl) this.subtitleEl.textContent = `L0 · ${country.administrativeStatus || 'Estado soberano'}${country.territoryOf ? ` · ${country.territoryOf}` : nameEn}`;
 
       // Métricas y curiosidad (restauradas a país)
-      if (this.metricLabel1) this.metricLabel1.textContent = 'Capital';
-      if (this.metricLabel2) this.metricLabel2.textContent = 'Continente';
+      if (this.metricLabel1) this.metricLabel1.textContent = country.territoryOf ? 'Cabecera / sede' : 'Capital';
+      if (this.metricLabel2) this.metricLabel2.textContent = 'Región';
       if (this.capitalEl) this.capitalEl.textContent = `📍 ${capital}`;
       if (this.continentEl) this.continentEl.textContent = `🌐 ${continent}`;
 
@@ -971,8 +997,8 @@
           this.exploreBtn.style.cursor = 'pointer';
         } else {
           this.exploreBtn.disabled = true;
-          this.exploreBtn.innerHTML = `<span>⏳</span><span>Digitalización en Proceso</span>`;
-          this.exploreBtn.title = 'Divisiones detalladas en proceso de digitalización';
+          this.exploreBtn.style.display = 'none';
+          this.exploreBtn.title = 'Sin divisiones internas cargadas';
           this.exploreBtn.style.opacity = '0.65';
           this.exploreBtn.style.cursor = 'not-allowed';
         }
@@ -984,7 +1010,7 @@
         if (shortcut) {
           this.btnExploreCapital.style.display = 'inline-flex';
           if (this.btnExploreCapitalText) {
-            this.btnExploreCapitalText.textContent = `Ver Desglose de ${shortcut.capital} (L2)`;
+            this.btnExploreCapitalText.textContent = `${shortcut.capital} · ${shortcut.type} (L2)`;
           }
           this.btnExploreCapital.title = `Explorar desglose de ${shortcut.type} de ${shortcut.capital} (Nivel 2)`;
         } else {
@@ -1053,6 +1079,7 @@
      * @param {Object} parentCountry Datos del país padre
      */
     showDivision(division, parentCountry) {
+      this.setLocalScope(State.getLevel() === 2 ? WorldMap.activeLocalData : null);
       if (!this.panelEl || !division) return;
 
       const pCountry = parentCountry || State.getState().selectedCountry || {};
@@ -1076,7 +1103,7 @@
           this.metricLabel2.textContent = 'Población Estimada';
           if (this.continentEl) this.continentEl.textContent = `👥 ${Number(population).toLocaleString('es-ES')}`;
         } else {
-          this.metricLabel2.textContent = 'País Soberano';
+          this.metricLabel2.textContent = 'Territorio';
           if (this.continentEl) this.continentEl.textContent = `🌐 ${cName}`;
         }
       }
@@ -1086,7 +1113,7 @@
       if (this.curiosityTitle) this.curiosityTitle.textContent = 'Ficha Subnacional';
       if (this.curiosityEl) {
         const popStr = population ? ` Cuenta con una población censada o proyectada de ${Number(population).toLocaleString('es-ES')} habitantes.` : '';
-        this.curiosityEl.textContent = `${divName} constituye un(a) ${typeEs.toLowerCase()} de ${cName}.${popStr} Puedes explorar sus límites subnacionales o abrir su ficha de detalle local.`;
+        this.curiosityEl.textContent = pCountry.localEntityType === 'Ciudad-Estado' ? `${cName} es una ciudad-Estado. Explora sus áreas locales en el mapa y consulta el ámbito de la colección.` : `${divName} es una división de tipo ${typeEs.toLowerCase()} en ${cName}.${popStr} Puedes explorar sus límites o consultar el detalle local disponible.`;
       }
 
       // Badges
@@ -1152,6 +1179,7 @@
      * @param {Object} parentCountry País soberano (ej. Perú)
      */
     showDistrict(district, parentDivision, parentCountry) {
+      this.setLocalScope(WorldMap.activeLocalData);
       if (!this.panelEl || !district) return;
 
       const pCountry = parentCountry || State.getState().selectedCountry || {};
@@ -1326,7 +1354,7 @@
           if (shortcut) {
             this.btnExploreCapital.style.display = 'inline-flex';
             if (this.btnExploreCapitalText) {
-              this.btnExploreCapitalText.textContent = `Ver Desglose de ${shortcut.capital} (L2)`;
+              this.btnExploreCapitalText.textContent = `${shortcut.capital} · ${shortcut.type} (L2)`;
             }
             this.btnExploreCapital.title = `Explorar desglose de ${shortcut.type} de ${shortcut.capital} (Nivel 2)`;
           } else {
@@ -1366,6 +1394,7 @@
      * Restablece completamente los controles e indicadores al estado inicial de L0 (Mundo).
      */
     onReset() {
+      this.setLocalScope();
       if (this.btnExploreCapital) this.btnExploreCapital.style.display = 'none';
 
       // Breadcrumb a solo Mundo
@@ -1428,6 +1457,9 @@
       // Suscripción al estado para sincronizar selecciones globales y zoom cinemático (SPEC-07, SPEC-08, SPEC-09)
       State.subscribe((state, event) => {
         if (event.type === 'countrySelect') {
+          InfoPanel.onReset();
+          WorldMap.clearL1();
+          Tooltip.hide();
           highlightSelectedDivision(null);
           highlightSelectedDistrict(null);
           WorldMap.clearL2();
@@ -1700,6 +1732,7 @@
             const meta = WorldMap.getCountryMeta(d.properties?.name) || WorldMap.getCountryMeta(d.id) || {};
 
             const countryData = {
+              ...meta,
               feature: d,
               id: d.id,
               name: d.properties?.name,
