@@ -34,12 +34,14 @@ body, html {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
 }
 
 /* Header & Controls */
 .top-nav {
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -196,9 +198,10 @@ body, html {
 /* Graph Viewport */
 .graph-viewport {
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
   position: relative;
   width: 100%;
-  height: 100%;
   background: radial-gradient(circle at center, #131d33 0%, #090d16 100%);
   cursor: grab;
 }
@@ -211,6 +214,7 @@ body, html {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: none;
 }
 
 /* SVG Node & Link Styles */
@@ -536,12 +540,6 @@ body, html {
   .title-group .subtitle {
     display: none;
   }
-  .search-box input {
-    width: 140px;
-  }
-  .search-box input:focus {
-    width: 180px;
-  }
   .detail-drawer {
     width: 100%;
   }
@@ -549,3 +547,67 @@ body, html {
     display: none;
   }
 }
+
+/* Responsive navigation: keep controls outside the graph's available height. */
+.nav-left, .title-group, .nav-controls, .filter-group { min-width: 0; }
+.search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max(100%, 280px);
+  max-width: calc(100vw - 28px);
+  max-height: 40dvh;
+  overflow-y: auto;
+  background: #111827;
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  box-shadow: 0 12px 24px #0008;
+  z-index: 30;
+}
+.search-results button, .search-results p {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 12px;
+  text-align: left;
+  background: transparent;
+  color: var(--text-main);
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+}
+.search-results button { cursor: pointer; }
+.search-results button:hover, .search-results button:focus-visible { background: #1e293b; }
+.legend-header { cursor: pointer; margin-bottom: 0; }
+.floating-legend[open] .legend-header { margin-bottom: 8px; }
+.drawer-image-wrap { flex-shrink: 0; }
+.btn-close-drawer { width: 44px; height: 44px; background: #0f172acc; }
+:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; }
+
+@media (max-width: 768px) {
+  .top-nav { gap: 10px; }
+  .nav-left, .nav-controls { width: 100%; }
+  .nav-left { gap: 12px; }
+  .nav-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+  .search-box { grid-column: 1 / -1; min-width: 0; }
+  .search-box input, .search-box input:focus { width: 100%; min-height: 44px; font-size: 16px; }
+  .select-filter { width: 100%; min-height: 44px; font-size: 16px; padding: 8px; }
+  .btn-control { min-height: 44px; padding: 8px 10px; }
+  .btn-icon { min-width: 44px; min-height: 44px; right: 0; }
+  .floating-legend { bottom: 12px; left: 12px; padding: 10px 12px; }
+  .floating-legend summary { min-height: 24px; }
+  .legend-items { pointer-events: none; }
+  .drawer-content { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+}
+@media (max-height: 500px) and (max-width: 768px) {
+  .top-nav { padding: 6px 14px; gap: 6px; }
+  .nav-left { display: none; }
+}
+
+@media (max-width: 380px) {
+  .action-buttons .btn-control span { display: none; }
+  .action-buttons .btn-control { min-width: 44px; justify-content: center; }
+}
+
+.image-credit { color: #a9c4d8; font-size: 12px; }
+.image-credit[hidden] { display: none; }

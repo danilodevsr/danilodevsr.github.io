@@ -1,31 +1,168 @@
 {
   "metadata": {
-    "title": "Árbol Filogenético de Carnívoros y Especies",
-    "version": "1.0",
-    "total_nodes": 27,
-    "total_links": 26,
+    "title": "Animales: parentesco y vida cotidiana en el Perú",
+    "version": "3.0",
+    "total_nodes": 48,
+    "total_links": 47,
     "sources": [
       "Wikipedia REST API"
     ]
   },
   "nodes": [
     {
+      "id": "animalia",
+      "label": "Reino Animalia",
+      "scientific_name": "Animalia",
+      "type": "root",
+      "emoji": "🌎",
+      "color": "#a78bfa",
+      "description": "Los animales de este atlas se agrupan por parentesco. Las líneas simplifican la clasificación y omiten algunos niveles intermedios."
+    },
+    {
+      "id": "mammalia",
+      "label": "Mamíferos",
+      "scientific_name": "Mammalia",
+      "type": "suborder",
+      "parent": "animalia",
+      "emoji": "🐾",
+      "color": "#f43f5e",
+      "description": "Clase de vertebrados que incluye, entre otros, carnívoros, cuyes y animales de crianza."
+    },
+    {
+      "id": "aves",
+      "label": "Aves",
+      "scientific_name": "Aves",
+      "type": "suborder",
+      "parent": "animalia",
+      "emoji": "🪶",
+      "color": "#f59e0b",
+      "description": "Clase de vertebrados con plumas, que incluye gallinas y patos."
+    },
+    {
+      "id": "actinopterygii",
+      "label": "Peces de aletas radiadas",
+      "scientific_name": "Actinopterygii",
+      "type": "suborder",
+      "parent": "animalia",
+      "emoji": "🐟",
+      "color": "#0ea5e9",
+      "description": "Grupo de peces con aletas sostenidas por radios; incluye a la anchoveta."
+    },
+    {
+      "id": "gallina_criolla",
+      "label": "Gallina o pollo criollo",
+      "common_name": "Gallina o pollo criollo",
+      "scientific_name": "Gallus gallus domesticus",
+      "type": "species",
+      "parent": "phasianidae",
+      "emoji": "🐔",
+      "category": "corral",
+      "origin": "Común en el Perú; origen doméstico fuera de América",
+      "description": "La gallina y el gallo son adultos; el pollito es una cría de la misma ave doméstica. Criolla describe poblaciones locales de crianza, no una especie aparte.",
+      "source_url": "https://leyendas.gob.pe/zoologia/gallo-domestico/",
+      "rank": "Ave doméstica",
+      "aliases": [
+        "pollito",
+        "pollitos",
+        "gallo",
+        "gallina"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Male_and_female_chicken_sitting_together.jpg/330px-Male_and_female_chicken_sitting_together.jpg",
+      "image_credit": "https://commons.wikimedia.org/wiki/File:Male_and_female_chicken_sitting_together.jpg"
+    },
+    {
+      "id": "cuy",
+      "label": "Cuy",
+      "common_name": "Cuy",
+      "scientific_name": "Cavia porcellus",
+      "type": "species",
+      "parent": "caviidae",
+      "emoji": "🐹",
+      "category": "crianza",
+      "origin": "Domesticado en los Andes",
+      "description": "Mamífero doméstico andino criado en el Perú para alimentación. Existen ecotipos locales y razas desarrolladas en el país.",
+      "source_url": "https://sinia.minam.gob.pe/inea/informe/estado-y-los-impactos/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Caviaklein.jpg/330px-Caviaklein.jpg",
+      "image_credit": "https://commons.wikimedia.org/wiki/File:Caviaklein.jpg"
+    },
+    {
+      "id": "pato_criollo",
+      "label": "Pato criollo",
+      "common_name": "Pato criollo",
+      "scientific_name": "Cairina moschata",
+      "type": "species",
+      "parent": "anatidae",
+      "emoji": "🦆",
+      "category": "corral",
+      "origin": "Nativo de América; criado en el Perú",
+      "description": "Ave doméstica conocida como pato criollo o muscovy, presente en sistemas de crianza y en la cocina peruana.",
+      "source_url": "https://www.serpar.gob.pe/mundo-animal/pato-criollo-01/",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Muscovy_Duck_%28Cairina_moschata%29_male_%2829039391935%29.jpg/330px-Muscovy_Duck_%28Cairina_moschata%29_male_%2829039391935%29.jpg",
+      "image_credit": "https://commons.wikimedia.org/wiki/File:Muscovy_Duck_%28Cairina_moschata%29_male_%2829039391935%29.jpg"
+    },
+    {
+      "id": "cerdo",
+      "label": "Cerdo",
+      "common_name": "Cerdo",
+      "scientific_name": "Sus scrofa domesticus",
+      "type": "species",
+      "parent": "suidae",
+      "emoji": "🐖",
+      "category": "crianza",
+      "origin": "Común en el Perú; domesticado fuera de América",
+      "description": "Mamífero doméstico criado para alimentación; en el Perú también se conocen poblaciones de cerdos criollos.",
+      "source_url": "https://www.gbif.org/taxon/53HGR",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Pig_farm_Vampula_1.jpg/330px-Pig_farm_Vampula_1.jpg",
+      "image_credit": "https://commons.wikimedia.org/wiki/File:Pig_farm_Vampula_1.jpg"
+    },
+    {
+      "id": "vaca",
+      "label": "Vaca o ganado vacuno",
+      "common_name": "Vaca o ganado vacuno",
+      "scientific_name": "Bos taurus",
+      "type": "species",
+      "parent": "bovidae",
+      "emoji": "🐄",
+      "category": "crianza",
+      "origin": "Común en el Perú; domesticado fuera de América",
+      "description": "Mamífero doméstico criado para carne y leche. En el Perú existe ganado criollo adaptado a distintas regiones.",
+      "source_url": "https://cdn.www.gob.pe/uploads/document/file/321471/Div_Especies_Genetica_y_Cultural.pdf?v=1560804091",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Cow_%28Fleckvieh_breed%29_Oeschinensee_Slaunger_2009-07-07.jpg/330px-Cow_%28Fleckvieh_breed%29_Oeschinensee_Slaunger_2009-07-07.jpg",
+      "image_credit": "https://commons.wikimedia.org/wiki/File:Cow_%28Fleckvieh_breed%29_Oeschinensee_Slaunger_2009-07-07.jpg"
+    },
+    {
+      "id": "anchoveta",
+      "label": "Anchoveta peruana",
+      "common_name": "Anchoveta peruana",
+      "scientific_name": "Engraulis ringens",
+      "type": "species",
+      "parent": "engraulidae",
+      "emoji": "🐟",
+      "category": "mar",
+      "origin": "Nativa del Pacífico sudoriental",
+      "description": "Pez marino presente frente a Perú y Chile. Forma parte de la biodiversidad y las pesquerías del mar peruano.",
+      "source_url": "https://biodiversidadacuatica.imarpe.gob.pe/Catalogo/Especie/103",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Engraulis_ringens.jpg/330px-Engraulis_ringens.jpg",
+      "image_credit": "https://commons.wikimedia.org/wiki/File:Engraulis_ringens.jpg"
+    },
+    {
       "id": "carnivora",
       "label": "Orden Carnivora",
       "scientific_name": "Carnivora",
-      "type": "root",
+      "type": "order",
       "emoji": "🥩",
       "color": "#f43f5e",
       "description": "Orden de mamíferos placentarios especializados principalmente en la digestión de carne. Incluye tanto carnívoros terrestres (félidos, cánidos, osos) como marinos (focas, leones marinos, morsas).",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Panthera_pardus_close_up.jpg/330px-Panthera_pardus_close_up.jpg?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-      "wiki_url": "https://es.wikipedia.org/wiki/Carnivora"
+      "wiki_url": "https://es.wikipedia.org/wiki/Carnivora",
+      "parent": "mammalia"
     },
     {
       "id": "pinnipedia",
       "label": "Pinnipedia (Pinnípedos)",
       "scientific_name": "Pinnipedia",
       "type": "suborder",
-      "parent": "carnivora",
+      "parent": "caniformia",
       "emoji": "🌊",
       "color": "#0ea5e9",
       "description": "Los pinnípedos (Pinnipedia) son una parvorden de mamíferos carnívoros del suborden Caniformia; junto con los cetáceos, y los sirenios, los únicos mamíferos adaptados a la vida acuática marina. Son de cuerpo alargado y fusiforme, patas cortas con extremidades palmeadas en forma de aleta. Suelen ser gregarios, se alimentan de peces, moluscos y crustáceos. Están presentes en todos los mares, menos en el mar Caribe, donde abundaba una especie ya extinta: la foca monje del Caribe, la cual probablemente se extinguió a mediados del siglo XX. Se dividen en tres familias, los otáridos, los fócidos (focas) y los odobénidos (morsas).",
@@ -348,138 +485,295 @@
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/330px-Grosser_Panda.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
       "original_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Grosser_Panda.JPG/3840px-Grosser_Panda.JPG?utm_source=es.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
       "wiki_url": "https://es.wikipedia.org/wiki/Ailuropoda_melanoleuca"
+    },
+    {
+      "id": "galliformes",
+      "label": "Galliformes",
+      "scientific_name": "Galliformes",
+      "parent": "aves",
+      "type": "order",
+      "emoji": "🐔",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "phasianidae",
+      "label": "Phasianidae",
+      "scientific_name": "Phasianidae",
+      "parent": "galliformes",
+      "type": "family",
+      "emoji": "🐔",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "anseriformes",
+      "label": "Anseriformes",
+      "scientific_name": "Anseriformes",
+      "parent": "aves",
+      "type": "order",
+      "emoji": "🦆",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "anatidae",
+      "label": "Anatidae",
+      "scientific_name": "Anatidae",
+      "parent": "anseriformes",
+      "type": "family",
+      "emoji": "🦆",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "rodentia",
+      "label": "Rodentia (Roedores)",
+      "scientific_name": "Rodentia",
+      "parent": "mammalia",
+      "type": "order",
+      "emoji": "🐭",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "caviidae",
+      "label": "Caviidae",
+      "scientific_name": "Caviidae",
+      "parent": "rodentia",
+      "type": "family",
+      "emoji": "🐹",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "artiodactyla",
+      "label": "Artiodactyla",
+      "scientific_name": "Artiodactyla",
+      "parent": "mammalia",
+      "type": "order",
+      "emoji": "🐾",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "suidae",
+      "label": "Suidae",
+      "scientific_name": "Suidae",
+      "parent": "artiodactyla",
+      "type": "family",
+      "emoji": "🐖",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "bovidae",
+      "label": "Bovidae",
+      "scientific_name": "Bovidae",
+      "parent": "artiodactyla",
+      "type": "family",
+      "emoji": "🐄",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "clupeiformes",
+      "label": "Clupeiformes",
+      "scientific_name": "Clupeiformes",
+      "parent": "actinopterygii",
+      "type": "order",
+      "emoji": "🐟",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
+    },
+    {
+      "id": "engraulidae",
+      "label": "Engraulidae",
+      "scientific_name": "Engraulidae",
+      "parent": "clupeiformes",
+      "type": "family",
+      "emoji": "🐟",
+      "description": "Grupo taxonómico que reúne a los animales conectados debajo."
     }
   ],
   "links": [
     {
-      "source": "carnivora",
-      "target": "pinnipedia",
-      "relation": "suborden"
+      "source": "animalia",
+      "target": "mammalia"
+    },
+    {
+      "source": "animalia",
+      "target": "aves"
+    },
+    {
+      "source": "animalia",
+      "target": "actinopterygii"
+    },
+    {
+      "source": "phasianidae",
+      "target": "gallina_criolla"
+    },
+    {
+      "source": "caviidae",
+      "target": "cuy"
+    },
+    {
+      "source": "anatidae",
+      "target": "pato_criollo"
+    },
+    {
+      "source": "suidae",
+      "target": "cerdo"
+    },
+    {
+      "source": "bovidae",
+      "target": "vaca"
+    },
+    {
+      "source": "engraulidae",
+      "target": "anchoveta"
+    },
+    {
+      "source": "mammalia",
+      "target": "carnivora"
+    },
+    {
+      "source": "caniformia",
+      "target": "pinnipedia"
     },
     {
       "source": "carnivora",
-      "target": "feliformia",
-      "relation": "suborden"
+      "target": "feliformia"
     },
     {
       "source": "carnivora",
-      "target": "caniformia",
-      "relation": "suborden"
+      "target": "caniformia"
     },
     {
       "source": "pinnipedia",
-      "target": "otariidae",
-      "relation": "familia"
+      "target": "otariidae"
     },
     {
       "source": "pinnipedia",
-      "target": "phocidae",
-      "relation": "familia"
+      "target": "phocidae"
     },
     {
       "source": "pinnipedia",
-      "target": "odobenidae",
-      "relation": "familia"
+      "target": "odobenidae"
     },
     {
       "source": "feliformia",
-      "target": "felidae",
-      "relation": "familia"
+      "target": "felidae"
     },
     {
       "source": "caniformia",
-      "target": "canidae",
-      "relation": "familia"
+      "target": "canidae"
     },
     {
       "source": "caniformia",
-      "target": "ursidae",
-      "relation": "familia"
+      "target": "ursidae"
     },
     {
       "source": "otariidae",
-      "target": "zalophus_californianus",
-      "relation": "especie"
+      "target": "zalophus_californianus"
     },
     {
       "source": "otariidae",
-      "target": "otaria_flavescens",
-      "relation": "especie"
+      "target": "otaria_flavescens"
     },
     {
       "source": "otariidae",
-      "target": "arctocephalus_gazella",
-      "relation": "especie"
+      "target": "arctocephalus_gazella"
     },
     {
       "source": "phocidae",
-      "target": "phoca_vitulina",
-      "relation": "especie"
+      "target": "phoca_vitulina"
     },
     {
       "source": "phocidae",
-      "target": "mirounga_leonina",
-      "relation": "especie"
+      "target": "mirounga_leonina"
     },
     {
       "source": "phocidae",
-      "target": "hydrurga_leptonyx",
-      "relation": "especie"
+      "target": "hydrurga_leptonyx"
     },
     {
       "source": "odobenidae",
-      "target": "odobenus_rosmarus",
-      "relation": "especie"
+      "target": "odobenus_rosmarus"
     },
     {
       "source": "felidae",
-      "target": "panthera_leo",
-      "relation": "especie"
+      "target": "panthera_leo"
     },
     {
       "source": "felidae",
-      "target": "panthera_tigris",
-      "relation": "especie"
+      "target": "panthera_tigris"
     },
     {
       "source": "felidae",
-      "target": "panthera_onca",
-      "relation": "especie"
+      "target": "panthera_onca"
     },
     {
       "source": "felidae",
-      "target": "puma_concolor",
-      "relation": "especie"
+      "target": "puma_concolor"
     },
     {
       "source": "canidae",
-      "target": "canis_lupus",
-      "relation": "especie"
+      "target": "canis_lupus"
     },
     {
       "source": "canidae",
-      "target": "vulpes_vulpes",
-      "relation": "especie"
+      "target": "vulpes_vulpes"
     },
     {
       "source": "canidae",
-      "target": "lycalopex_culpaeus",
-      "relation": "especie"
+      "target": "lycalopex_culpaeus"
     },
     {
       "source": "ursidae",
-      "target": "ursus_maritimus",
-      "relation": "especie"
+      "target": "ursus_maritimus"
     },
     {
       "source": "ursidae",
-      "target": "ursus_arctos",
-      "relation": "especie"
+      "target": "ursus_arctos"
     },
     {
       "source": "ursidae",
-      "target": "ailuropoda_melanoleuca",
-      "relation": "especie"
+      "target": "ailuropoda_melanoleuca"
+    },
+    {
+      "source": "aves",
+      "target": "galliformes"
+    },
+    {
+      "source": "galliformes",
+      "target": "phasianidae"
+    },
+    {
+      "source": "aves",
+      "target": "anseriformes"
+    },
+    {
+      "source": "anseriformes",
+      "target": "anatidae"
+    },
+    {
+      "source": "mammalia",
+      "target": "rodentia"
+    },
+    {
+      "source": "rodentia",
+      "target": "caviidae"
+    },
+    {
+      "source": "mammalia",
+      "target": "artiodactyla"
+    },
+    {
+      "source": "artiodactyla",
+      "target": "suidae"
+    },
+    {
+      "source": "artiodactyla",
+      "target": "bovidae"
+    },
+    {
+      "source": "actinopterygii",
+      "target": "clupeiformes"
+    },
+    {
+      "source": "clupeiformes",
+      "target": "engraulidae"
     }
   ]
 }

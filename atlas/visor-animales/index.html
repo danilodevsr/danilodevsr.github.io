@@ -530,27 +530,34 @@ body.landing-page footer {
       <div class="nav-left">
         <a href="../../index.html" class="back-link" title="Volver al inicio">← Inicio</a>
         <div class="title-group">
-          <h1>Species Atlas <span>(Grafo Taxonómico)</span></h1>
-          <p class="subtitle">Explora conexiones evolutivas entre mamíferos carnívoros, pinnípedos, felinos y cánidos</p>
+          <h1>Species Atlas <span>(Árbol Taxonómico)</span></h1>
+          <p class="subtitle">Del reino animal a las especies y los animales cotidianos del Perú</p>
         </div>
       </div>
       <div class="nav-controls">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="Buscar especie o familia..." autocomplete="off" />
+          <input type="text" id="searchInput" placeholder="Buscar especie o familia..." autocomplete="off" aria-label="Buscar especie o familia" aria-controls="searchResults" aria-expanded="false" />
+          <div id="searchResults" class="search-results" hidden aria-live="polite"></div>
           <button id="clearSearch" class="btn-icon" title="Limpiar búsqueda" style="display:none">✕</button>
         </div>
         <div class="filter-group">
-          <select id="groupFilter" class="select-filter">
+          <select aria-label="Filtrar por rama" id="groupFilter" class="select-filter">
             <option value="all">🌐 Todas las ramas</option>
-            <option value="pinnipedia">🌊 Pinnípedos (Focas, Lobos, Morsas)</option>
-            <option value="feliformia">🐱 Feliformes (Felinos)</option>
-            <option value="caniformia">🐾 Caniformes (Cánidos y Osos)</option>
+            <option value="aves">🪶 Aves</option>
+            <option value="mammalia">🐾 Mamíferos</option>
+            <option value="actinopterygii">🐟 Peces</option>
+            <option value="uso:mercado">🛒 Del mercado</option>
+            <option value="uso:corral">🏡 De corral</option>
+            <option value="uso:crianza">🌿 De crianza</option>
+            <option value="uso:mar">🌊 Del mar</option>
+            <option value="pinnipedia">🌊 Pinnípedos</option>
+            <option value="feliformia">🐱 Feliformes</option>
+            <option value="caniformia">🐾 Caniformes</option>
           </select>
         </div>
         <div class="action-buttons">
-          <button id="btnResetZoom" class="btn-control" title="Centrar y reajustar vista">🎯 Centrar</button>
-          <button id="btnTogglePhysics" class="btn-control" title="Pausar o reanudar física">⏸️ Física</button>
+          <button id="btnResetZoom" class="btn-control" aria-label="Centrar y reajustar vista" title="Centrar y reajustar vista">🎯 <span>Centrar</span></button>
         </div>
       </div>
     </header>
@@ -560,26 +567,29 @@ body.landing-page footer {
       <svg id="graphSvg"></svg>
 
       <!-- Leyenda flotante -->
-      <div class="floating-legend">
-        <div class="legend-header">Taxonomía</div>
+      <details class="floating-legend">
+        <summary class="legend-header">Taxonomía</summary>
         <div class="legend-items">
+          <span class="legend-item"><span class="dot" style="background:#a78bfa"></span> Reino animal</span>
+          <span class="legend-item"><span class="dot" style="background:#f59e0b"></span> Aves</span>
+          <span class="legend-item"><span class="dot" style="background:#0ea5e9"></span> Peces</span>
           <span class="legend-item"><span class="dot" style="background:#f43f5e"></span> Orden (Carnivora)</span>
           <span class="legend-item"><span class="dot" style="background:#0ea5e9"></span> Pinnípedos (Marinos)</span>
           <span class="legend-item"><span class="dot" style="background:#f59e0b"></span> Feliformes (Felinos)</span>
           <span class="legend-item"><span class="dot" style="background:#10b981"></span> Caniformes (Cánidos/Osos)</span>
         </div>
-      </div>
+      </details>
 
       <!-- Guía de interacción rápida -->
       <div class="interaction-hints">
-        <span>🖱️ Arrastra nodos para jugar con la física</span> • 
+        <span>🖱️ Arrastra el fondo para recorrer el árbol</span> •
         <span>🔍 Rueda del ratón para Zoom</span> • 
         <span>👆 Clic en un nodo para ver ficha</span>
       </div>
     </main>
 
     <!-- Panel Lateral / Inspector Drawer (Detalles de Especie) -->
-    <aside class="detail-drawer" id="detailDrawer" aria-hidden="true">
+    <aside class="detail-drawer" id="detailDrawer" aria-label="Ficha del animal" aria-hidden="true" inert>
       <button class="btn-close-drawer" id="btnCloseDrawer" title="Cerrar panel">✕</button>
       
       <div class="drawer-content">
@@ -588,6 +598,7 @@ body.landing-page footer {
           <div class="drawer-badge" id="drawerBadge">Especie</div>
         </div>
 
+        <a id="drawerImageCredit" class="image-credit" target="_blank" rel="noopener noreferrer" hidden>Foto referencial · créditos y licencia</a>
         <div class="drawer-header">
           <h2 id="drawerTitle">Nombre común</h2>
           <p class="scientific-name" id="drawerScientific">Nombre científico</p>
@@ -605,13 +616,14 @@ body.landing-page footer {
         </div>
 
         <div class="drawer-body">
-          <h3>Descripción (Wikipedia)</h3>
+          <h3>Descripción</h3>
+          <p id="drawerOrigin"></p>
           <p id="drawerDescription">Cargando información...</p>
         </div>
 
         <div class="drawer-footer">
           <a id="drawerWikiLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-wiki">
-            <span>📖 Leer artículo completo en Wikipedia</span> ↗
+            <span>📖 Consultar fuente</span> ↗
           </a>
           <button id="drawerFocusBtn" class="btn-focus">🎯 Enfocar en el Grafo</button>
         </div>
