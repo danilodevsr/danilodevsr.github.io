@@ -1,37 +1,6 @@
-import { getState, replaceActivities, setEventDate, setEventName, ensureMinimumActivities, sortActivities } from './state.js';
-
-const download = (filename, data) => {
-  const blob = new Blob([data], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = filename;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-};
-
-export const exportJson = () => {
-  const payload = JSON.stringify(getState(), null, 2);
-  const name = getState().eventName || 'agenda';
-  download(`${name.replace(/\s+/g, '-').toLowerCase()}-agenda.json`, payload);
-};
-
-export const importJson = async (file) => {
-  const text = await file.text();
-  const parsed = JSON.parse(text);
-  if (!Array.isArray(parsed.activities) || typeof parsed !== 'object') {
-    throw new Error('El archivo no tiene el formato esperado.');
-  }
-
-  setEventName(parsed.eventName || '');
-  setEventDate(parsed.eventDate || '');
-  replaceActivities(parsed.activities);
-  ensureMinimumActivities();
-  sortActivities();
-};
-
-export const exportPdf = () => {
-  window.print();
-};
+export function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+export function filename(agenda){return (agenda.eventName||'mi-agenda').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9-]+/g,'-').replace(/^-|-$/g,'').toLowerCase().slice(0,80)||'mi-agenda';}
+export const canvasBlob=canvas=>new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('No se pudo generar la imagen.')),'image/png'));
+export async function exportPng(canvas,agenda){download(await canvasBlob(canvas),filename(agenda)+'.png');}
+export async function exportPdf(canvas,agenda){if(!window.PDFLib)throw new Error('No se pudo cargar la biblioteca PDF. Recarga la página.');const doc=await PDFLib.PDFDocument.create();const image=await doc.embedPng(await (await canvasBlob(canvas)).arrayBuffer());const landscape=agenda.orientation==='landscape';const page=doc.addPage(landscape?[841.89,595.28]:[595.28,841.89]);page.drawImage(image,{x:0,y:0,width:page.getWidth(),height:page.getHeight()});download(new Blob([await doc.save()],{type:'application/pdf'}),filename(agenda)+'.pdf');}
+export function exportJson(agenda){download(new Blob([JSON.stringify(agenda,null,2)],{type:'application/json'}),filename(agenda)+'.json');}

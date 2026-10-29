@@ -1,238 +1,32 @@
-import {
-  ensureMinimumActivities,
-  getState,
-  resetState,
-  setEventDate,
-  setEventName,
-  syncActivitiesWithEventDate
-} from './state.js';
-import { addNewActivity, changeActivity, deleteActivity, createActivityRow, getValidatedState } from './agenda.js';
-import { applyPreset } from './presets.js';
-import { exportJson, importJson, exportPdf } from './export.js';
-import { isSlotAvailable, isOrderValid } from './validation.js';
-
-const agendaContainer = document.getElementById('activities');
-const summaryEl = document.getElementById('validationSummary');
-const nameInput = document.getElementById('eventName');
-const dateInput = document.getElementById('eventDate');
-const eventNameDisplay = document.getElementById('eventNameDisplay');
-const eventDateDisplay = document.getElementById('eventDateDisplay');
-const printableAgenda = document.getElementById('printableAgenda');
-const resetButton = document.getElementById('resetAgenda');
-const addButton = document.getElementById('addActivity');
-const pdfButton = document.getElementById('exportPdf');
-
-const presetButtons = {
-  morning: document.getElementById('presetMorning'),
-  afternoon: document.getElementById('presetAfternoon'),
-  night: document.getElementById('presetNight')
-};
-
-const renderAgenda = () => {
-  const { activities, validation, eventName, eventDate } = getValidatedState();
-  agendaContainer.innerHTML = '';
-
-  activities.forEach((activity) => {
-    const { row, inputs, errorEl, deleteBtn } = createActivityRow(activity, {
-      onChange: handleActivityChange,
-      onDelete: handleDelete
-    });
-
-    decorateInput(inputs.dayInput);
-    decorateInput(inputs.startInput);
-    decorateInput(inputs.endInput);
-    decorateInput(inputs.descInput);
-
-    const errors = validation[activity.id] || [];
-    if (errors.length) {
-      row.classList.add('invalid');
-      errorEl.textContent = errors.join(' ');
-    }
-    deleteBtn.disabled = activities.length <= 2;
-
-    agendaContainer.appendChild(row);
-  });
-
-  updateSummary(validation);
-  updateMeta(eventName, eventDate);
-};
-
-const updateSummary = (validation) => {
-  const hasErrors = Object.values(validation).some((list) => list.length);
-  if (hasErrors) {
-    summaryEl.textContent = 'Revisa los horarios: hay conflictos activos.';
-    summaryEl.classList.add('warning');
-  } else {
-    summaryEl.textContent = 'Sin conflictos detectados.';
-    summaryEl.classList.remove('warning');
-  }
-};
-
-const updateMeta = (eventName, eventDate) => {
-  eventNameDisplay.textContent = eventName || 'Evento sin nombre';
-  eventDateDisplay.textContent = formatEventDate(eventDate);
-};
-
-const formatEventDate = (eventDate) => {
-  if (!eventDate) return 'Sin fecha';
-  const [year, month, day] = eventDate.split('-').map(Number);
-  const parsed = new Date(year, (month || 1) - 1, day || 1);
-  if (Number.isNaN(parsed.getTime())) return 'Fecha inválida';
-  return parsed.toLocaleDateString('es-ES', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
-
-const handleActivityChange = (payload) => {
-  const { activities, eventDate } = getState();
-  const current = activities.find((item) => item.id === payload.id);
-  if (!current) return;
-
-  const cleanPayload = {
-    ...current,
-    ...payload
-  };
-
-  if (payload.description !== undefined) {
-    cleanPayload.description = payload.description;
-  }
-
-  const requiresValidation =
-    payload.start !== undefined || payload.end !== undefined || payload.activityDate !== undefined;
-
-  changeActivity(cleanPayload);
-
-  if (requiresValidation) {
-    const activityDate = cleanPayload.activityDate || eventDate;
-    const others = activities.filter((item) => item.id !== payload.id);
-    if (!isOrderValid(cleanPayload.start, cleanPayload.end, activityDate, eventDate)) {
-      renderAgenda();
-      return;
-    }
-
-    if (!isSlotAvailable(others, cleanPayload.start, cleanPayload.end, activityDate, eventDate, payload.id)) {
-      renderAgenda();
-      return;
-    }
-
-    renderAgenda();
-  }
-};
-
-const handleDelete = (id) => {
-  deleteActivity(id);
-  renderAgenda();
-};
-
-const handleAddActivity = () => {
-  addNewActivity();
-  renderAgenda();
-};
-
-const enablePresets = (enabled) => {
-  Object.values(presetButtons).forEach((btn) => {
-    btn.disabled = !enabled;
-  });
-};
-
-const bindMeta = () => {
-  nameInput.addEventListener('input', (e) => {
-    eventNameDisplay.textContent = e.target.value || 'Evento sin nombre';
-  });
-  nameInput.addEventListener('blur', () => {
-    setEventName(nameInput.value);
-    renderAgenda();
-    collapseInput(nameInput);
-  });
-  nameInput.addEventListener('focus', () => expandInput(nameInput));
-
-  dateInput.addEventListener('change', (e) => {
-    const previousDate = getState().eventDate;
-    const selectedDate = e.target.value;
-    setEventDate(selectedDate);
-    syncActivitiesWithEventDate(selectedDate, previousDate);
-    enablePresets(Boolean(selectedDate));
-    renderAgenda();
-  });
-  dateInput.addEventListener('blur', () => collapseInput(dateInput));
-  dateInput.addEventListener('focus', () => expandInput(dateInput));
-};
-
-const bindControls = () => {
-  addButton.addEventListener('click', handleAddActivity);
-  resetButton.addEventListener('click', handleReset);
-  presetButtons.morning.addEventListener('click', () => handlePreset('morning'));
-  presetButtons.afternoon.addEventListener('click', () => handlePreset('afternoon'));
-  presetButtons.night.addEventListener('click', () => handlePreset('night'));
-  document.getElementById('exportJson').addEventListener('click', exportJson);
-  document.getElementById('importJson').addEventListener('click', () => document.getElementById('importInput').click());
-  document.getElementById('importInput').addEventListener('change', handleImport);
-  pdfButton.addEventListener('click', exportPdf);
-  printableAgenda.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    exportPdf();
-  });
-};
-
-const handlePreset = (key) => {
-  const result = applyPreset(key);
-  summaryEl.textContent = result.message;
-  summaryEl.classList.toggle('warning', !result.success);
-  renderAgenda();
-};
-
-const handleImport = async (event) => {
-  const [file] = event.target.files;
-  if (!file) return;
-  try {
-    await importJson(file);
-    enablePresets(Boolean(getState().eventDate));
-    renderAgenda();
-  } catch (error) {
-    summaryEl.textContent = error.message;
-    summaryEl.classList.add('warning');
-  } finally {
-    event.target.value = '';
-  }
-};
-
-const handleReset = () => {
-  resetState();
-  nameInput.value = '';
-  dateInput.value = '';
-  enablePresets(false);
-  summaryEl.textContent = 'Sin conflictos detectados.';
-  summaryEl.classList.remove('warning');
-  collapseInput(nameInput);
-  collapseInput(dateInput);
-  renderAgenda();
-};
-
-const collapseInput = (input) => {
-  input.classList.add('as-text');
-};
-
-const expandInput = (input) => {
-  input.classList.remove('as-text');
-};
-
-const decorateInput = (input) => {
-  collapseInput(input);
-  input.addEventListener('focus', () => expandInput(input));
-  input.addEventListener('blur', () => collapseInput(input));
-};
-
-const init = () => {
-  ensureMinimumActivities();
-  enablePresets(false);
-  bindMeta();
-  bindControls();
-  collapseInput(nameInput);
-  collapseInput(dateInput);
-  renderAgenda();
-};
-
-init();
+import {DRAFT_KEY,emptyAgenda,newActivity,parseAgenda,minutes,sortedActivities} from './state.js';
+import {validateAgenda} from './validation.js';
+import {presetActivities} from './presets.js';
+import {drawInvitation} from './agenda.js';
+import {exportPng,exportPdf,exportJson} from './export.js';
+const $=id=>document.getElementById(id);let agenda=emptyAgenda(),timer,valid=false,exporting=false;
+function message(text){$('message').textContent=text;}
+try{const draft=localStorage.getItem(DRAFT_KEY);if(draft){agenda=parseAgenda(JSON.parse(draft),{draft:true});message('Recuperamos tu borrador local.');}}catch{message('No se pudo recuperar el borrador. Puedes abrir una agenda guardada.');}
+const fields={'event-name':'eventName','event-date':'eventDate',place:'place',intro:'intro',columns:'columns',orientation:'orientation'};
+function save(){try{localStorage.setItem(DRAFT_KEY,JSON.stringify(agenda));}catch{message('El navegador no permite guardar el borrador. Descarga tu agenda para conservarla.');}}
+function update(){clearTimeout(timer);const layout=drawInvitation($('invitation'),agenda),errors=validateAgenda(agenda);if(!layout.fits)errors.push('El contenido no cabe completo. Prueba horizontal, más columnas o descripciones más cortas. La descarga está pausada para evitar cortes.');
+ valid=agenda.activities.length>0&&!errors.length;$('png').disabled=$('pdf').disabled=!valid||exporting;$('layout-info').textContent=`Una página · ${layout.columns} ${layout.columns===1?'columna':'columnas'} · lectura de arriba abajo por columna`;
+ $('issues').replaceChildren();if(errors.length){const ul=document.createElement('ul');for(const error of errors){const li=document.createElement('li');li.textContent=error;ul.append(li);}$('issues').append(ul);}
+ $('accessible-plan').textContent=[agenda.eventName,agenda.eventDate,agenda.place,agenda.intro,...sortedActivities(agenda.activities).map(a=>`${a.activityDate} ${a.start} a ${a.end}: ${a.description}`)].join('. ');save();}
+function schedule(){clearTimeout(timer);timer=setTimeout(update,160);}
+function syncMeta(){for(const [id,key] of Object.entries(fields))$(id).value=agenda[key];}
+function input(type,value,label,max){const wrap=document.createElement('div'),id='field-'+crypto.randomUUID(),lab=document.createElement('label');lab.htmlFor=id;lab.textContent=label;const el=document.createElement(type==='textarea'?'textarea':'input');if(type!=='textarea')el.type=type;else el.rows=2;el.id=id;el.value=value;if(max)el.maxLength=max;wrap.append(lab,el);return {wrap,el};}
+function renderRows(){const root=$('activities');root.replaceChildren();$('empty-help').hidden=agenda.activities.length>0;
+ agenda.activities.forEach((a,i)=>{const row=document.createElement('article');row.className='activity';const top=document.createElement('div');top.className='activity-top';const title=document.createElement('span');title.textContent=`MOMENTO ${String(i+1).padStart(2,'0')}`;const remove=document.createElement('button');remove.className='remove';remove.textContent='Quitar';remove.setAttribute('aria-label',`Quitar actividad ${i+1}`);remove.onclick=()=>{agenda.activities=agenda.activities.filter(item=>item.id!==a.id);renderRows();update();};top.append(title,remove);row.append(top);
+ const desc=input('textarea',a.description,'¿Qué van a hacer?',600);desc.el.placeholder='Café, charla y algo rico para compartir';desc.el.oninput=()=>{a.description=desc.el.value;schedule();};row.append(desc.wrap);
+ const times=document.createElement('div');times.className='fields';const start=input('time',a.start,'Inicio'),end=input('time',a.end,'Fin');times.append(start.wrap,end.wrap);row.append(times);const duration=document.createElement('p');duration.className='duration';const showDuration=()=>{const n=minutes(a.end)-minutes(a.start);duration.textContent=n>0?`${n} minutos para este momento`:'Revisa el horario';};
+ for(const [field,key] of [[start,'start'],[end,'end']])field.el.onchange=()=>{a[key]=field.el.value;showDuration();update();};showDuration();row.append(duration);
+ const date=input('date',a.activityDate,'Día');date.el.onchange=()=>{a.activityDate=date.el.value;update();};row.append(date.wrap);root.append(row);
+ });$('add').disabled=agenda.activities.length>=120;}
+for(const [id,key] of Object.entries(fields))$(id).addEventListener(id==='event-date'||id==='columns'||id==='orientation'?'change':'input',()=>{const old=agenda.eventDate;agenda[key]=$(id).value;if(key==='eventDate'){for(const a of agenda.activities)if(a.activityDate===old)a.activityDate=agenda.eventDate;renderRows();}schedule();});
+$('add').onclick=()=>{if(agenda.activities.length>=120)return;agenda.activities.push(newActivity(agenda));renderRows();update();$('activities').lastElementChild.querySelector('textarea').focus();};
+document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{if(!agenda.eventDate){message('Selecciona una fecha primero.');return;}if(agenda.activities.length&&!confirm('Este ejemplo reemplazará las actividades actuales. ¿Continuar?'))return;agenda.activities=presetActivities(b.dataset.preset,agenda.eventDate);renderRows();update();message('Ejemplo cargado. Cambia los momentos para hacerlos tuyos.');});
+$('clear').onclick=()=>{if(!confirm('¿Crear una agenda nueva? El borrador actual se eliminará. Guarda una copia si quieres conservarlo.'))return;agenda=emptyAgenda();try{localStorage.removeItem(DRAFT_KEY);}catch{}syncMeta();renderRows();update();message('Agenda nueva lista.');};
+$('save').onclick=()=>{clearTimeout(timer);update();exportJson(agenda);message('Archivo editable descargado.');};$('open').onclick=()=>$('import').click();
+$('import').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>1000000)throw new Error('La agenda supera el límite de 1 MB.');const next=parseAgenda(JSON.parse(await file.text()));agenda=next;syncMeta();renderRows();update();message('Agenda abierta. Puedes seguir editándola.');}catch(error){message('No se pudo abrir: '+error.message);}finally{e.target.value='';}};
+async function runExport(format){update();if(!valid)return;exporting=true;$('png').disabled=$('pdf').disabled=true;try{if(document.fonts)await document.fonts.ready;update();await (format==='png'?exportPng:exportPdf)($('invitation'),agenda);message(format==='png'?'Imagen lista para compartir.':'PDF de una página descargado.');}catch(e){message(e.message);}finally{exporting=false;update();}}
+$('png').onclick=()=>runExport('png');$('pdf').onclick=()=>runExport('pdf');window.addEventListener('beforeunload',()=>{clearTimeout(timer);save();});syncMeta();renderRows();update();
