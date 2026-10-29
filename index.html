@@ -687,7 +687,7 @@ body.landing-page .footer-row>.mono { font-size:10px; }
       <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="home-nav">MENÚ <span aria-hidden="true">+</span></button>
       <nav id="home-nav" class="nav-links mono" aria-label="Navegación principal">
         <a href="#colecciones">EXPLORAR</a>
-        <a href="#showroom">SHOWROOM</a>
+        <a href="#showroom">DEMOS</a>
         <a href="#proyectos">CATÁLOGO</a>
         <a href="https://github.com/danilodevsr" target="_blank" rel="noopener">GITHUB ↗</a>
       </nav>
@@ -717,7 +717,7 @@ body.landing-page .footer-row>.mono { font-size:10px; }
     <section id="colecciones" class="home-section container">
       <div class="section-heading"><div><p class="eyebrow mono">ELIGE UN RECORRIDO</p><h2>EXPLORA EL LABORATORIO</h2></div><span class="section-note mono">A TU RITMO ↘</span></div>
       <div class="collections-grid">
-        <a class="collection-card collection-wide" href="/webs-experimental/"><span class="eyebrow mono">01 // SHOWROOM FRONTEND</span><h3>WEBS QUE SE EXPLORAN.</h3><p>Una colección de interfaces, narrativas visuales y experimentos de diseño. Entra, recorre y juega con cada propuesta.</p><span class="card-bottom mono">ENTRAR AL SHOWROOM <span>↗</span></span></a>
+        <a class="collection-card collection-wide" href="/?cat=demos#proyectos"><span class="eyebrow mono">01 // DEMOS</span><h3>WEBS QUE SE EXPLORAN.</h3><p>Una colección de interfaces, narrativas visuales y experimentos de diseño. Entra, recorre y juega con cada propuesta.</p><span class="card-bottom mono">EXPLORAR DEMOS <span>↗</span></span></a>
         <a class="collection-card" href="/?cat=atlas#proyectos"><span class="eyebrow mono">02 // ATLAS</span><h3>CAMBIA DE ESCALA.</h3><p>Del mapa del mundo al cuerpo humano y las relaciones entre especies.</p><span class="card-bottom mono">EXPLORAR ATLAS <span>↗</span></span></a>
         <a class="collection-card" href="/?cat=tools#proyectos"><span class="eyebrow mono">03 // HERRAMIENTAS</span><h3>HAZ ALGO ÚTIL.</h3><p>Imágenes, documentos, agendas y código: pequeñas utilidades para tareas concretas.</p><span class="card-bottom mono">VER HERRAMIENTAS <span>↗</span></span></a>
         <a class="collection-card" href="/?cat=games#proyectos"><span class="eyebrow mono">04 // JUEGOS</span><h3>UNA PAUSA PARA JUGAR.</h3><p>Bingo para compartir y una línea de tiempo para poner a prueba tu memoria.</p><span class="card-bottom mono">ELEGIR JUEGO <span>↗</span></span></a>
@@ -730,9 +730,9 @@ body.landing-page .footer-row>.mono { font-size:10px; }
     </section>
     <section id="showroom" class="home-section container">
       <div class="section-heading"><div><p class="eyebrow mono">NARRATIVAS // INTERACCIÓN & MOVIMIENTO</p><h2>EXPERIENCIAS WEB</h2></div><a class="section-note mono" href="/?cat=demos#proyectos">VER TODAS LAS DEMOS ↗</a></div>
-      <p class="section-intro">Ideas convertidas en recorridos: producto, naturaleza y hardware. Abre una experiencia y descubre cómo se cuenta.</p>
+      <p class="section-intro">Ideas convertidas en recorridos: producto, naturaleza, hardware y arte. Abre una experiencia y descubre cómo se cuenta.</p>
       <div id="showroom-grid" class="home-demo-grid"></div>
-      <a class="showroom-link mono" href="/webs-experimental/">SEGUIR EXPLORANDO EN EL SHOWROOM FRONTEND <span>↗</span></a>
+      <a class="showroom-link mono" href="/?cat=demos#proyectos">VER TODAS LAS DEMOS <span>↗</span></a>
     </section>
     <section class="panorama divider" aria-label="Herramientas del laboratorio">
       <img src="/assets/home/banner-tools.webp" alt="Herramientas y recursos del taller digital" loading="lazy" width="2752" height="1536">
@@ -741,13 +741,13 @@ body.landing-page .footer-row>.mono { font-size:10px; }
     <section id="proyectos" class="home-section home-catalog">
       <div class="container">
         <div class="section-heading"><div><p class="eyebrow mono">DIRECTORIO // PROYECTOS DEL LABORATORIO</p><h2>CATÁLOGO COMPLETO</h2></div><span class="section-note mono" id="catalog-count" role="status" aria-live="polite"></span></div>
-        <p class="section-intro">Busca una utilidad o elige una categoría. Las cinco piezas del <a href="/webs-experimental/">showroom frontend ↗</a> tienen su propio catálogo.</p>
+        <p class="section-intro">Busca una utilidad o elige una categoría. Las experiencias web se reúnen en <a href="/?cat=demos#proyectos">Demos ↗</a>.</p>
         <div class="catalog-toolbar">
           <label class="search-box-wrap" for="search-input"><span class="search-label mono">BUSCAR //</span><input type="search" id="search-input" class="search-input" placeholder="Atlas, imágenes, bingo, PDF…" autocomplete="off"></label>
           <div id="filter-pills" class="filter-pills" role="group" aria-label="Filtrar por categoría"></div>
         </div>
         <div id="projects-grid" class="projects-grid"></div>
-        <noscript><p>Activa JavaScript para buscar en el catálogo. También puedes entrar al <a href="/webs-experimental/">showroom frontend</a>.</p></noscript>
+        <noscript><p>Activa JavaScript para buscar en el catálogo. También puedes explorar las <a href="/?cat=demos#proyectos">demos</a>.</p></noscript>
       </div>
     </section>
   </main>
@@ -937,6 +937,20 @@ const PROJECTS = [
     showroomEnfoque: 'Showroom Brutalista & Hardware',
     showroomTecnologia: 'GSAP 3 · ScrollTrigger · SplitText',
     showroomCardClass: 'card-xbox'
+  },
+  {
+    id: 'D05',
+    title: 'Atelier Cinemático · Arte & Óleo',
+    desc: 'Recorrido cinemático desde la arquitectura brutalista hasta la revelación de una obra al óleo, con secuencias Canvas 2D y ficha editorial.',
+    path: '/demos/cinematic-web-painting/',
+    emoji: '🎨',
+    tags: ['Scrollytelling', 'Canvas 2D', 'Lenis', 'Arte'],
+    category: 'demos',
+    showroomBadge: 'DEMO 05 // ARTE',
+    showroomSkin: 'ARTE & ARQUITECTURA',
+    showroomEnfoque: 'Narrativa cinemática & Arte',
+    showroomTecnologia: 'Astro · Canvas 2D · Lenis',
+    showroomCardClass: 'card-atelier'
   }
 ];
 
