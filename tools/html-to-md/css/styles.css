@@ -189,3 +189,17 @@ button:disabled {
     width: 100%;
   }
 }
+
+/* Revisión de extracción local: interfaz compacta y contraste sobre fondo claro. */
+.html-md-hero .hero-title { font-size: clamp(1.8rem, 5vw, 2.8rem); margin: 0 0 12px; max-width: none; }
+.html-md-hero .hero-text { margin: 0; }
+.local-badge { color: #166534; }
+#markdown-output { color: #111827; background: #fff; }
+.status { color: #374151; }
+.status[data-type="success"] { color: #166534; }
+.status[data-type="error"] { color: #991b1b; }
+.status[data-type="warning"] { color: #854d0e; }
+.conversion-options { margin: 16px 0; }
+.drop-zone { min-height: 155px; }
+.drop-zone:focus-within { outline: 3px solid #2563eb; outline-offset: 3px; }
+.tool-header-bar { gap: 12px; flex-wrap: wrap; }

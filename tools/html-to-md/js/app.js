@@ -1,169 +1,108 @@
-import { describeFile, getMarkdownFilename, readHtmlFile, validateHtmlFile } from "./fileHandler.js";
-import { parseHtmlString } from "./htmlParser.js";
-import { cleanDocumentContent } from "./contentCleaner.js";
-import { convertHtmlToMarkdown } from "./markdownConverter.js";
+import { describeFile, getMarkdownFilename, readHtmlFile, validateHtmlFile } from './fileHandler.js';
+import { convertDocument } from './converter.js';
 
-const state = {
-  file: null,
-  markdown: "",
-  markdownFilename: "contenido.md"
-};
-
-const elements = {
-  year: document.getElementById("year"),
-  fileInput: document.getElementById("html-file"),
-  dropZone: document.getElementById("drop-zone"),
-  fileSummary: document.getElementById("file-summary"),
-  convertButton: document.getElementById("convert-btn"),
-  clearButton: document.getElementById("clear-btn"),
-  copyButton: document.getElementById("copy-btn"),
-  downloadButton: document.getElementById("download-btn"),
-  markdownOutput: document.getElementById("markdown-output"),
-  outputMeta: document.getElementById("output-meta"),
-  status: document.getElementById("status")
-};
-
-function setStatus(message, type = "info") {
-  elements.status.textContent = message;
-  elements.status.dataset.type = type;
+const $ = id => document.getElementById(id);
+const state = { file: null, html: '', markdown: '', filename: 'contenido.md', revision: 0 };
+const fileInput = $('html-file'), scope = $('content-scope');
+const convert = $('convert-btn'), copy = $('copy-btn'), download = $('download-btn');
+const output = $('markdown-output');
+function setStatus(message, type = 'info') {
+  $('status').textContent = message;
+  $('status').dataset.type = type;
 }
-
-function setMarkdown(markdown, filename) {
-  state.markdown = markdown;
-  state.markdownFilename = filename;
-  elements.markdownOutput.value = markdown;
-  elements.outputMeta.textContent = `${markdown.length.toLocaleString("es-PE")} caracteres generados.`;
-  elements.copyButton.disabled = false;
-  elements.downloadButton.disabled = false;
-}
-
 function resetOutput() {
-  state.markdown = "";
-  state.markdownFilename = "contenido.md";
-  elements.markdownOutput.value = "";
-  elements.outputMeta.textContent = "El resultado aparecerá aquí.";
-  elements.copyButton.disabled = true;
-  elements.downloadButton.disabled = true;
+  state.markdown = '';
+  output.value = '';
+  $('output-meta').textContent = 'El resultado aparecerá aquí.';
+  copy.disabled = download.disabled = true;
 }
-
-function selectFile(file) {
+async function selectFile(file) {
+  const revision = ++state.revision;
+  state.file = null; state.html = '';
+  convert.disabled = true;
+  resetOutput();
   try {
     validateHtmlFile(file);
-    state.file = file;
-    elements.fileSummary.textContent = describeFile(file);
-    elements.convertButton.disabled = false;
-    resetOutput();
-    setStatus("Archivo cargado. Puedes convertirlo cuando quieras.", "success");
+    $('file-summary').textContent = describeFile(file);
+    setStatus('Leyendo HTML localmente…');
+    const html = await readHtmlFile(file);
+    if (revision !== state.revision) return;
+    state.file = file; state.html = html;
+    convert.disabled = false;
+    setStatus('Archivo cargado. Puedes convertirlo.', 'success');
   } catch (error) {
-    state.file = null;
-    elements.fileInput.value = "";
-    elements.fileSummary.textContent = describeFile(null);
-    elements.convertButton.disabled = true;
-    resetOutput();
-    setStatus(error.message, "error");
+    if (revision !== state.revision) return;
+    fileInput.value = '';
+    $('file-summary').textContent = describeFile(null);
+    setStatus(error.message, 'error');
   }
 }
-
-async function convertSelectedFile() {
+function convertSelectedFile() {
+  if (!state.file) return;
+  resetOutput();
   try {
-    elements.convertButton.disabled = true;
-    setStatus("Convirtiendo HTML localmente...", "info");
-
-    const html = await readHtmlFile(state.file);
-    const document = parseHtmlString(html);
-    const cleanContent = cleanDocumentContent(document);
-    const markdown = convertHtmlToMarkdown(cleanContent);
-
-    setMarkdown(markdown, getMarkdownFilename(state.file));
-    setStatus("Conversión completada. El archivo nunca salió de tu navegador.", "success");
-  } catch (error) {
-    resetOutput();
-    setStatus(error.message, "error");
-  } finally {
-    elements.convertButton.disabled = !state.file;
-  }
+    const result = convertDocument(state.html, {scope: scope.value});
+    state.markdown = result.markdown;
+    state.filename = getMarkdownFilename(state.file);
+    output.value = state.markdown;
+    $('output-meta').textContent = `${result.method} · ${state.markdown.length.toLocaleString('es-PE')} caracteres.`;
+    copy.disabled = download.disabled = false;
+    const notice = result.warnings.join(' ');
+    setStatus(notice || 'Conversión completada. El archivo permanece en tu navegador.', notice ? 'warning' : 'success');
+  } catch (error) { setStatus(error.message, 'error'); }
 }
-
 async function copyMarkdown() {
-  if (!state.markdown) return;
-
+  if (!state.markdown.trim()) return;
   try {
     await navigator.clipboard.writeText(state.markdown);
-    setStatus("Markdown copiado al portapapeles.", "success");
-  } catch (error) {
-    elements.markdownOutput.focus();
-    elements.markdownOutput.select();
-    document.execCommand("copy");
-    setStatus("Markdown copiado al portapapeles.", "success");
+    setStatus('Markdown copiado.', 'success');
+  } catch {
+    output.focus(); output.select();
+    const copied = document.execCommand('copy');
+    setStatus(copied ? 'Markdown copiado.' : 'No se pudo copiar automáticamente. El texto está seleccionado: usa Ctrl+C o ⌘C.', copied ? 'success' : 'warning');
   }
 }
-
 function downloadMarkdown() {
-  if (!state.markdown) return;
-
-  const blob = new Blob([state.markdown], { type: "text/markdown;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = state.markdownFilename;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-  setStatus(`Descarga preparada: ${state.markdownFilename}`, "success");
+  if (!state.markdown.trim()) return;
+  const url = URL.createObjectURL(new Blob([state.markdown], {type: 'text/markdown;charset=utf-8'}));
+  const link = document.createElement('a');
+  link.href = url; link.download = state.filename;
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  setStatus(`Descarga preparada: ${state.filename}`, 'success');
 }
-
 function clearAll() {
-  state.file = null;
-  elements.fileInput.value = "";
-  elements.fileSummary.textContent = describeFile(null);
-  elements.convertButton.disabled = true;
+  state.revision++;
+  state.file = null; state.html = ''; state.filename = 'contenido.md';
+  fileInput.value = ''; scope.value = 'auto';
+  $('file-summary').textContent = describeFile(null);
+  convert.disabled = true;
+  resetOutput(); setStatus('Listo para convertir.');
+}
+function optionsChanged() {
   resetOutput();
-  setStatus("Listo para convertir.", "info");
+  setStatus(state.file ? 'Opciones cambiadas. Vuelve a convertir el archivo.' : 'Carga un HTML para comenzar.');
 }
-
-function bindDragAndDrop() {
-  ["dragenter", "dragover"].forEach((eventName) => {
-    elements.dropZone.addEventListener(eventName, (event) => {
-      event.preventDefault();
-      elements.dropZone.classList.add("drag-over");
-    });
-  });
-
-  ["dragleave", "drop"].forEach((eventName) => {
-    elements.dropZone.addEventListener(eventName, (event) => {
-      event.preventDefault();
-      elements.dropZone.classList.remove("drag-over");
-    });
-  });
-
-  elements.dropZone.addEventListener("drop", (event) => {
-    const [file] = event.dataTransfer.files;
-    if (file) selectFile(file);
-  });
-}
-
-function init() {
-  elements.year.textContent = new Date().getFullYear();
-
-  elements.fileInput.addEventListener("change", (event) => {
-    const [file] = event.target.files;
-    selectFile(file);
-  });
-
-  elements.convertButton.addEventListener("click", convertSelectedFile);
-  elements.clearButton.addEventListener("click", clearAll);
-  elements.copyButton.addEventListener("click", copyMarkdown);
-  elements.downloadButton.addEventListener("click", downloadMarkdown);
-  elements.markdownOutput.addEventListener("input", (event) => {
-    state.markdown = event.target.value;
-    const hasMarkdown = state.markdown.trim().length > 0;
-    elements.copyButton.disabled = !hasMarkdown;
-    elements.downloadButton.disabled = !hasMarkdown;
-  });
-
-  bindDragAndDrop();
-}
-
-init();
+$('year').textContent = new Date().getFullYear();
+fileInput.addEventListener('change', () => selectFile(fileInput.files?.[0]));
+scope.addEventListener('change', optionsChanged);
+convert.addEventListener('click', convertSelectedFile);
+$('clear-btn').addEventListener('click', clearAll);
+copy.addEventListener('click', copyMarkdown);
+download.addEventListener('click', downloadMarkdown);
+output.addEventListener('input', () => {
+  state.markdown = output.value;
+  copy.disabled = download.disabled = !state.markdown.trim();
+  $('output-meta').textContent = `${state.markdown.length.toLocaleString('es-PE')} caracteres · editado.`;
+});
+const dropZone = $('drop-zone');
+['dragenter', 'dragover'].forEach(name => dropZone.addEventListener(name, event => {
+  event.preventDefault(); dropZone.classList.add('drag-over');
+}));
+['dragleave', 'drop'].forEach(name => dropZone.addEventListener(name, event => {
+  event.preventDefault(); dropZone.classList.remove('drag-over');
+}));
+dropZone.addEventListener('drop', event => {
+  const [file] = event.dataTransfer.files;
+  if (file) selectFile(file);
+});

@@ -1,8 +1,6 @@
 function normalizeMarkdown(markdown) {
-  return markdown
-    .replace(/[ \t]+\n/g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
+  // Turndown already normalizes prose. Global whitespace replacement corrupts code.
+  return markdown.trim();
 }
 
 function escapeTableCell(value) {
@@ -14,7 +12,7 @@ function escapeTableCell(value) {
 }
 
 function getCellAlignment(cell) {
-  const align = (cell.getAttribute("align") || cell.style.textAlign || "").toLowerCase();
+  const align = (cell.getAttribute("data-md-align") || cell.getAttribute("align") || cell.style.textAlign || "").toLowerCase();
 
   if (align === "center") return ":---:";
   if (align === "right") return "---:";
@@ -110,7 +108,22 @@ export function convertHtmlToMarkdown(element) {
     }
   });
 
-  turndownService.remove(["button", "form", "input", "select", "textarea"]);
+  turndownService.addRule("preserveCode", {
+    filter: node => node.nodeName === 'PRE',
+    replacement: (_content, node) => {
+      const code = node.querySelector('code') || node;
+      const clone = code.cloneNode(true);
+      clone.querySelectorAll('br').forEach(br => br.replaceWith('\n'));
+      const text = clone.textContent.replace(/\n$/, '');
+      const classes = `${node.className} ${code.className}`;
+      const language = node.getAttribute('data-md-language') || classes.match(/(?:language|lang)-([a-zA-Z0-9_+-]+)/)?.[1] || '';
+      const runs = text.match(/`+/g) || [];
+      const fence = '`'.repeat(Math.max(3, ...runs.map(run => run.length + 1)));
+      return `\n\n${fence}${language}\n${text}\n${fence}\n\n`;
+    }
+  });
+  // Form containers can contain meaningful labels/values in saved portals.
+  turndownService.remove(["button", "input", "select", "textarea"]);
 
   const markdown = normalizeMarkdown(turndownService.turndown(element));
 
